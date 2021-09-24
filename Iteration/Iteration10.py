@@ -3,7 +3,7 @@ print("Enter a series of positive numbers. Input -1 to stop. ")
 STOP = -1
 
 largest = 0
-smallest = 100000
+smallest = 1e500
 total = 0
 counter = 0
 
