@@ -46,6 +46,6 @@ while run == 'y':
     else: 
         print("There are no (real) solutions.")
 
-    run = input("Another? (y)es or (n)o: ")
+    run = input("\nAnother? (y)es or (n)o: ")
 
 print("Thanks for using QUADRATIC SOLVER.\nGood-bye!")
