@@ -18,13 +18,15 @@ for char in isbn_temp:
 for digit in range(len(isbn_clean)):
     isbn_total += int(isbn_clean[digit]) * (10 - digit)
 
-# Calculate the digit that will make the isbn_total a multiple of 11 
-check_digit = 11 - (isbn_total % 11) 
+# Calculate the digit that will make the isbn_total a multiple of 11. 
+# Mod by 11 again to handle check digit of 0. 
+check_digit = str((11 - isbn_total % 11) % 11)
 
 # Special case of check_digit for ISBN-10 system  
-if check_digit == 10:
+if check_digit == "10":
     check_digit = "X"
-elif check_digit == 11: 
-    check_digit = 0 
+
+isbn = isbn_temp + check_digit 
 
 print("The check digit must be {}.".format(check_digit))
+print("The valid ISBN number is {}.".format(isbn))
