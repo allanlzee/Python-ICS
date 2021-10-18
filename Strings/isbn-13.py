@@ -14,11 +14,11 @@ for char in isbn_temp:
 
 for i in range(ISBN_SYSTEM): 
     if i % 2 == 0: 
-        isbn_total += int(isbn_clean[i]) * 1
+        isbn_total += int(isbn_clean[i])
     else: 
         isbn_total += int(isbn_clean[i]) * 3 
 
 if isbn_total % 10 == 0: 
-    print("This is a valid ISBN-13 number.")
+    print("\nThis is a valid ISBN-13 number.")
 else: 
-    print("This is an invalid ISBN-13 number.") 
+    print("\nThis is an invalid ISBN-13 number.") 
