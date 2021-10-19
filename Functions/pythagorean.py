@@ -9,6 +9,7 @@ def pythagorean(max_length):
         # Find triangle legs that satisfy a^2 + b^2 = c^2
         # Find all possible combinations of a and b. 
         for b in range(1, c): 
+            
             for a in range(1, b + 1): 
                 # Triple satisfies a^2 + b^2 = c^2. 
                 if a**2 + b**2 == hyp_squared:
@@ -16,7 +17,8 @@ def pythagorean(max_length):
 
 
 def multiple_check(a, b, c): 
-    """Checks if a Pythagorean triple is a multiple of a lower triple.""" 
+    """Checks if a Pythagorean triple is a multiple of a lower triple.
+    The parameters a, b, and c satisfy the equation a^2 + b^2 = c^2.""" 
 
     # If a and b have a common divisor greater than 1, it 
     # will be a multiple of a previous triple. 

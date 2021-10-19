@@ -13,13 +13,14 @@ def two_digit_sum(number):
         curr_digit = number[i]
         two_digit += curr_digit
 
-        if i % 2 == 1: 
+        if i % 2 == 1:
             total_sum += int(two_digit)
             two_digit = ""
             curr_digit = ""
 
     # Adds the last digit in case there is an odd number of digits. 
-    total_sum += int(curr_digit)
+    if curr_digit != "":
+        total_sum += int(curr_digit)
 
     return total_sum 
 
