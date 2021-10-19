@@ -1,5 +1,5 @@
 def num_digits(string): 
-    """Returns the number of digits in a string."""
+    """Return the number of digits in a string."""
 
     # Total number of digits in the string.
     digits = 0 
