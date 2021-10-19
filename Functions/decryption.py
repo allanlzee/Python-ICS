@@ -1,5 +1,5 @@
 def caesar(upper_string, key): 
-    """Return an string that has been encrypted using Caesar Cipher 
+    """Return a string that has been encrypted using Caesar Cipher 
     and is spaced out in blocks of 5 uppercase letters."""
 
     encrypted_string = "" 
