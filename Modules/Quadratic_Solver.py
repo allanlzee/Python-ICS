@@ -11,6 +11,10 @@ def discriminant(a, b, c):
     """Calculate the discriminant, b² - 4ac, where a, b, and c
     are floats; return the value."""\
 
+    a = get_float(a)
+    b = get_float(b)
+    c = get_float(c)
+
     d = b**2 - 4*a*c 
 
     return d 
@@ -44,13 +48,18 @@ def solve(a, b, c):
     """Solve for the roots of a quadratic equation and print the 
     roots."""
 
+    a = get_float(a)
+    b = get_float(b)
+    c = get_float(c)
+
     discrim = discriminant(a, b, c)
     solutions = num_solutions(a, b, c)
 
     if solutions == 2: 
         first_root = (-b + sqrt(discrim)) / (2 * a)
         second_root = (-b - sqrt(discrim)) / (2 * a)
-        print("The two solutions are {} and {}.".format(first_root, second_root))
+        print("The two solutions are {:.2f} and {:.2f}.".format(
+            first_root, second_root))
 
     elif solutions == 1: 
         first_root = -b / (2 * a) 
@@ -60,11 +69,17 @@ def solve(a, b, c):
         print("There are no real solutions.")
 
 
+def get_float(str): 
+    """Return the float value of a string argument."""
+
+    return float(str)
+
+
 def main(): 
     print("QUADRATIC SOLVER\n")
-    a = float(input("Enter the value of a: "))
-    b = float(input("Enter the value of b: "))
-    c = float(input("Enter the value of c: "))
+    a = input("Enter the value of a: ")
+    b = input("Enter the value of b: ")
+    c = input("Enter the value of c: ")
 
     print("\nThe discriminant is {}.".format(discriminant(a, b, c)))
     print("\nThere are {} roots.".format(num_solutions(a, b, c)))
