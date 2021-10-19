@@ -8,4 +8,3 @@ def string_separator(string):
 
 input_string = input("Enter a string: ")
 string_separator(input_string)
-

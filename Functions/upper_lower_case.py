@@ -10,7 +10,7 @@ def to_upper(string):
         else:
             uppercase_string += char
 
-    print(uppercase_string)
+    return uppercase_string
 
 
 def to_lower(string): 
@@ -25,8 +25,5 @@ def to_lower(string):
         else:
             lowercase_string += char
 
-    print(lowercase_string)
-
-
-to_lower("AHDFFIWE($**HFS")
+    return lowercase_string
 
