@@ -76,6 +76,8 @@ def get_float(str):
 
 
 def main(): 
+    """The main quadratic solving function."""
+
     print("QUADRATIC SOLVER\n")
     a = input("Enter the value of a: ")
     b = input("Enter the value of b: ")

@@ -73,7 +73,7 @@ def main():
 
     while True: 
         user_input = input("\nHi there! Would you like to " +  
-            "(v)erify or (g)enerate an ISBN-13 Number?")
+            "(v)erify or (g)enerate an ISBN-13 Number? ")
 
         if user_input == "v" or user_input == "verify": 
             isbn_initial = input("Enter a 13 digit ISBN-13 number: ")
@@ -90,7 +90,7 @@ def main():
             while True: 
                 isbn_initial = input("Enter a 12 digit number: ")
 
-                if len(isbn_initial) != 12: 
+                if len(clean(isbn_initial)) != 12: 
                     print("This is not a valid input. Please try again.\n")
 
                 else:
