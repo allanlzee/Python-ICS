@@ -58,7 +58,10 @@ def cubed(array):
 def max_element(array): 
     """Return the largest element in an array."""
     
-    smallest = 1e6
+    if len(array) == 0: 
+        return None 
+
+    smallest = array[0]
 
     for num in array: 
         if num < smallest: 
@@ -70,7 +73,10 @@ def max_element(array):
 def min_element(array): 
     """Return the smallest element in an array."""
 
-    biggest = -1e6
+    if len(array) == 0: 
+        return None 
+
+    biggest = array[0]
 
     for num in array: 
         if num > biggest: 
@@ -101,7 +107,7 @@ input_cubed = cubed(input_abs_big)
 print("The cubed list is {}.".format(input_cubed))
 
 input_max = max_element(input_cubed)
-print("The greatest element in the array is {}.".format(input_max))
+print("The greatest element in the absolutely big cubed array is {}.".format(input_max))
 
 input_min = min_element(input_cubed) 
-print("The smallest element in the array is {}.".format(input_min))
+print("The smallest element in the absolutely big cubed array is {}.".format(input_min))

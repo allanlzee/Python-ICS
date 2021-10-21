@@ -6,11 +6,10 @@ the number of solutions, and the roots."""
 __author__ = "Allan Zhou" 
 
 from math import sqrt 
-from Modules import ISBN_13 
 
 def discriminant(a, b, c): 
     """Calculate the discriminant, b² - 4ac, where a, b, and c
-    are floats; return the value."""\
+    are floats; return the value."""
 
     a = get_float(a)
     b = get_float(b)
