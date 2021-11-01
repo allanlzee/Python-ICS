@@ -159,6 +159,8 @@ def class_list(num_students):
 
     print("CLASS LIST\n" + "-" * 10)
 
+    # longest_name - 5 represents the spacing between the column labels, "Student" and "ID". 
+    # 5 represents the length of 'Student', with an extra 2 spaces.
     print("Student" + " " * (longest_name - 5) + "ID")
 
     for i in range(num_students): 
@@ -166,10 +168,8 @@ def class_list(num_students):
 
 
 def main(): 
-    class_list(2)
+    pass
 
 
 if __name__ == "__main__": 
     main()
-
-
