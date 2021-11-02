@@ -1,0 +1,1 @@
+print("cheddar"[-len("cheddar")])
