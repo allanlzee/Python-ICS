@@ -4,7 +4,7 @@ __author__ = "Allan Zhou"
 
 import math 
 
-def is_num_ddd(num: int) -> bool: 
+def is_num_even(num: int) -> bool: 
     """Return True iff num is an even number.
     
     >>> is_num_odd(2) 
