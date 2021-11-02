@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """2.4 Function Design Recipe Questions."""
 
 __author__ = "Allan Zhou"
@@ -71,13 +70,6 @@ def perimeter_of_rectangle(l: float, w: float) -> float:
 
     return 2 * (l + w)
 
-=======
-from math import sqrt 
-
-
-__author__ = "Allan Zhou"
->>>>>>> 3642df07cdc4cd8de5608ffe1301c4baf94cde6b
-
 
 def calculate_rectangle_area(l: float, w: float) -> float: 
     """Return the area of a rectangle with length l and width w.
@@ -105,10 +97,6 @@ def calc_triangle_area(a: float, b: float, c: float) -> float:
     a, b, and c.
     
     >>> calc_triangle_area(2, 2, 3) 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3642df07cdc4cd8de5608ffe1301c4baf94cde6b
     """
 
     # Heron's Formula: √ s(s - a)(s - b)(s - c), where s is the semi-perimeter
@@ -117,11 +105,7 @@ def calc_triangle_area(a: float, b: float, c: float) -> float:
     s = (a + b + c) / 2
     print(s)  
 
-<<<<<<< HEAD
     area = math.sqrt(s * (s - a) * (s - b) * (s - c))
-=======
-    area = sqrt(s * (s - a) * (s - b) * (s - c))
->>>>>>> 3642df07cdc4cd8de5608ffe1301c4baf94cde6b
     return round(area, 2) 
 
 
@@ -176,11 +160,7 @@ def cartesian_dist(p1, p2) -> float:
     y1 = p2[1]
     y2 = p1[1]
 
-<<<<<<< HEAD
     return round(math.sqrt((x1 - x2) ** 2 + (y2 - y1) ** 2), 2)
-=======
-    return round(sqrt((x1 - x2) ** 2 + (y2 - y1) ** 2), 2)
->>>>>>> 3642df07cdc4cd8de5608ffe1301c4baf94cde6b
 
 
 def abs_value(num1: float, num2: float) -> bool: 
@@ -275,8 +255,4 @@ def main():
 
 
 if __name__ == "__main__": 
-<<<<<<< HEAD
     main() 
-=======
-    main() 
->>>>>>> 3642df07cdc4cd8de5608ffe1301c4baf94cde6b
