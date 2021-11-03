@@ -222,7 +222,7 @@ def is_prime(number: int) -> bool:
     """
 
     # Exclude 1 and number as factors.
-    for i in range(2, number): 
+    for i in range(2, int(math.sqrt(number)) + 1): 
         if number % i == 0: 
             return False 
 
@@ -251,7 +251,7 @@ def main():
     print(cartesian_dist([0, 0], [3, 4]))
     print(max_of_mins([0, 1], [2, 3]))
     print(string_to_list("Allan"))
-    print(list_of_primes(10))
+    print(list_of_primes(100000))
 
 
 if __name__ == "__main__": 
