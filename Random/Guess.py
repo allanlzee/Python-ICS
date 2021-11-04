@@ -64,7 +64,7 @@ def dice_roll():
     you get the same value and count how many rolls it takes."""
 
     program = "y"
-    
+
     while program == "y": 
         program = input("Would you like to play the dice game? (y)es or (n)o: ")
 
@@ -85,9 +85,37 @@ def dice_roll():
     print("Thanks for playing dice game.")
 
 
+def computer_guessing(lower: int, upper: int): 
+    """Guess the user's number using the binary search algorithm, with time
+    complexity of O(log n). For the numbers 1 to 10, the algorithm should 
+    take at most 4 guesses."""
+
+    num_guesses = 0 
+    lower_bound = lower
+    upper_bound = upper
+
+    user_number = int(input("Enter a number for the computer to guess: "))
+
+    while True: 
+        computer_number = (lower_bound + upper_bound) // 2 
+        
+        print("The computer guesses {}.".format(computer_number))
+        num_guesses += 1 
+        result = input("Is the computer's number (c)orrect, (h)igher, or (l)ower: ")
+
+        if result == "c" or result == "correct": 
+            print("\nI guessed your number in {} guess(es).".format(num_guesses))
+            print("Your number was {}.".format(user_number))
+            break
+        elif result == "l" or result == "lower": 
+            lower_bound = computer_number + 1
+        else: 
+            upper_bound = computer_number 
+
 
 def main(): 
-    dice_roll()
+    # dice_roll()
+    computer_guessing(1, 1000) 
 
 if __name__ == "__main__": 
     main() 
