@@ -1,7 +1,74 @@
-from math import sqrt 
-
+"""2.4 Function Design Recipe Questions."""
 
 __author__ = "Allan Zhou"
+
+import math 
+
+def is_num_even(num: int) -> bool: 
+    """Return True iff num is an even number.
+    
+    >>> is_num_odd(2) 
+    True
+    """
+
+    return num % 2 == 0 
+
+
+def farenheit_to_celsius(temperature: float) -> float: 
+    """Return the value of temperature, which is measured in
+    celsius, in farenheit.
+    
+    >>> farenheit_to_celsius(0)
+    32 
+    """
+
+    return temperature * 9 / 5 + 32 
+
+
+def celsius_to_farenheit(temperature: float) -> float: 
+    """Return the value of temperature, which is measured in 
+    farenheit, in celsius.
+    
+    >>> celsius_to_farenheit(32)
+    0
+    """
+    
+    return (temperature - 32) * 5 / 9 
+    
+
+def calculate_hypotenuse(a: float, b: float) -> float: 
+    """Return the hypotenuse of a right triangle with legs
+    a and b.
+    
+    >>> calculate_hypotenuse(3, 4) 
+    5
+    """
+
+    return math.sqrt(a**2 + b**2)
+
+
+def validate_triangle_sides(a: float, b: float, c: float) -> bool: 
+    """Return True iff the lengths a, b, and c can form a right
+    triangle.
+    
+    >>> validate_triangle_sides(3, 4, 5)
+    True
+    """
+
+    # The three sides, with c as the hypotenuse, must satisfy the 
+    # Pythagorean Theorem to form a right triangle.
+    return a**2 + b**2 == c**2 
+
+
+def perimeter_of_rectangle(l: float, w: float) -> float: 
+    """Return the perimeter of a rectangle with length l and
+    width w using formula 2(l + w).
+    
+    >>> perimeter_of_rectangle(3, 4)
+    14 
+    """
+
+    return 2 * (l + w)
 
 
 def calculate_rectangle_area(l: float, w: float) -> float: 
@@ -30,7 +97,6 @@ def calc_triangle_area(a: float, b: float, c: float) -> float:
     a, b, and c.
     
     >>> calc_triangle_area(2, 2, 3) 
-
     """
 
     # Heron's Formula: √ s(s - a)(s - b)(s - c), where s is the semi-perimeter
@@ -39,7 +105,7 @@ def calc_triangle_area(a: float, b: float, c: float) -> float:
     s = (a + b + c) / 2
     print(s)  
 
-    area = sqrt(s * (s - a) * (s - b) * (s - c))
+    area = math.sqrt(s * (s - a) * (s - b) * (s - c))
     return round(area, 2) 
 
 
@@ -94,7 +160,7 @@ def cartesian_dist(p1, p2) -> float:
     y1 = p2[1]
     y2 = p1[1]
 
-    return round(sqrt((x1 - x2) ** 2 + (y2 - y1) ** 2), 2)
+    return round(math.sqrt((x1 - x2) ** 2 + (y2 - y1) ** 2), 2)
 
 
 def abs_value(num1: float, num2: float) -> bool: 
@@ -156,7 +222,7 @@ def is_prime(number: int) -> bool:
     """
 
     # Exclude 1 and number as factors.
-    for i in range(2, number): 
+    for i in range(2, int(math.sqrt(number)) + 1): 
         if number % i == 0: 
             return False 
 
@@ -185,7 +251,7 @@ def main():
     print(cartesian_dist([0, 0], [3, 4]))
     print(max_of_mins([0, 1], [2, 3]))
     print(string_to_list("Allan"))
-    print(list_of_primes(10))
+    print(list_of_primes(100000))
 
 
 if __name__ == "__main__": 
