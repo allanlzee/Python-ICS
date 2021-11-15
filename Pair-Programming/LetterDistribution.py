@@ -51,10 +51,11 @@ def letter_distribution(string: str):
             num_chars += 1 
             index = ord(char) - ASCII_CONVERSION
 
-            # Letter has been used.
+            # Letter has been used in the string.
             used_chars[index] = True
             chars_count[index] += 1
 
+            # Tracks the value of the mode. 
             if chars_count[index] > mode: 
                 mode = chars_count[index]
 
@@ -65,7 +66,6 @@ def letter_distribution(string: str):
     print("Character | Count | Frequency")
 
     for i in range(len(used_chars)): 
-
         # If the character is in the string.
         if used_chars[i]: 
 
