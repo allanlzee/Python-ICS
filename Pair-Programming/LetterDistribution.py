@@ -3,24 +3,23 @@ def letter_distribution(string: str):
     letters (A-Z) appear in the string and how often.
     
     >>> letter_distribution("speedway stadium")
-    Frequency of Letters 
-    
-    Character | Count | Frequency 
-    -----------------------------
-    S         | 2     |  13.3%
-    P         | 1     |  6.7%
-    E         | 2     |  13.3%
-    D         | 2     |  13.3%
-    W         | 1     |  6.7%
-    A         | 2     |  13.3%
-    Y         | 1     |  6.7%
-    T         | 1     |  6.7%
-    I         | 1     |  6.7%
-    U         | 1     |  6.7%
-    M         | 1     |  6.7%
+    Frequency of Letters
 
-    Mode: S, E, D, A
-    Percentage Vowels: 40% 
+    Character | Count | Frequency
+    A         |     2 |    13.33%
+    D         |     2 |    13.33%
+    E         |     2 |    13.33%
+    I         |     1 |     6.67%
+    M         |     1 |     6.67%
+    P         |     1 |     6.67%
+    S         |     2 |    13.33%
+    T         |     1 |     6.67%
+    U         |     1 |     6.67%
+    W         |     1 |     6.67%
+    Y         |     1 |     6.67%
+
+    Mode(s): A D E S 
+    Percentage of Vowels: 40.0% (6 vowels)
 
     """
 
