@@ -1,10 +1,13 @@
-"""Pair Programming"""
+"""Pair Programming Assignment"""
+
 
 __author__ = "Allan Zhou, Daniel Hong"
 
+
 from math import sqrt
 
-def birthday():
+
+def birthday(bday: int, bmonth: int, day: int, month: int):
     """Take in the birthday month and day and the current month and day from the user 
     and print a message accordingly. 
 
@@ -16,39 +19,50 @@ def birthday():
     Your birthday is approaching. Happy early birthday!
     """
    
-    bday = int(input('Enter your birth day: '))
-    bmonth = int(input('Enter your birth month: '))
-    day = int(input("Enter today's day: "))
-    month = int(input("Enter today's month: "))
-
     if month == bmonth:
         if day == bday:
-            print("Your birthday is today. Happy birthday!")
+            birthday_time = "is today"
+            greeting = ""
+    
         elif day < bday:
-            print("Your birthday is approaching. Happy early birthday!")
+            birthday_time = "is approaching"
+            greeting = "early "
+            
         else:
-            print("Your birthday has passed. Happy belated birthday!")
+            birthday_time = "has passed"
+            greeting = "belated "
+            
     elif month < bmonth:
-        print("Your birthday is approaching. Happy early birthday!")
+        birthday_time = "is approaching"
+        greeting = "early "
+
     else:
-        print('Your birthday has passed. Happy belated birthday!')
+        birthday_time = "has passed"
+        greeting = "belated "
+
+    print("Your birthday {}. Happy {}birthday!\n".format(birthday_time, greeting))
 
 
-def leap_year():
+def leap_year(year: int):
     """Determine if a year given by the user is a leap year.
     >>> leap_year() 
     Enter a year: 2005
     The year 2005 is not a leap year.
     """
 
-    year = int(input('Enter a year: '))
     if year % 4 == 0:
-        if year % 400 == 0:
-            print("The year {} is a leap year.".format(year))
-        else:
-            print("The year {} is not a leap year.".format(year))
+        if year % 100 == 0:
+            if year % 400 == 0:
+                leap = "a"
+            else: 
+                leap = "not a"
+        else: 
+            leap = "a"
     else:
-        print("The year {} is not a leap year.".format(year))
+        leap = "not a"
+
+
+    print("The year {} is {} leap year.\n".format(year, leap))
 
    
 def line_segment():
@@ -60,6 +74,7 @@ def line_segment():
     Point 2 y-value: 2
     >>>
     """
+
     print("Enter the coordinates of two points.")
 
     x1 = float(input("Point 1 x-value: "))
@@ -67,13 +82,22 @@ def line_segment():
     x2 = float(input("Point 2 x-value: "))
     y2 = float(input("Point 2 y-value: "))
 
-    print("Your points are ({}, {}) and ({}, {}).".format(x1, y1, x2, y2))
+    print("\nYour points are ({}, {}) and ({}, {}).\n".format(x1, y1, x2, y2))
 
-    slope = (y2 - y1) / (x2 - x1)
-    print('The slope of the line segment is {:.2f}.'.format(slope))
+    if x2 - x1 == 0: 
+        print('The slope is undefined.')
+    else: 
+        if x2 > x1: 
+            slope = (y2 - y1) / (x2 - x1)
+        else: 
+            slope = (y1 - y2) / (x1 - x2)
+
+        print('The slope of the line segment is {:.2f}.'.format(slope))
 
     length = sqrt((y2 - y1)**2 + (x2 - x1)**2)
     print('The length of the line segment is {:.2f}.'.format(length))
+
+    print()
 
 
 def letter_distribution(string: str): 
@@ -81,20 +105,27 @@ def letter_distribution(string: str):
     letters (A-Z) appear in the string and how often.
     
     >>> letter_distribution("speedway stadium")
+
     Frequency of Letters
-    Character | Count | Frequency
-    A         |     2 |    13.33%
-    D         |     2 |    13.33%
-    E         |     2 |    13.33%
-    I         |     1 |     6.67%
-    M         |     1 |     6.67%
-    P         |     1 |     6.67%
-    S         |     2 |    13.33%
-    T         |     1 |     6.67%
-    U         |     1 |     6.67%
-    W         |     1 |     6.67%
-    Y         |     1 |     6.67%
-    Mode(s): A D E S 
+
+     -------------------------------
+    | Character | Count | Frequency |
+     -------------------------------
+    | A         | 2     | 13.33   % |
+    | D         | 2     | 13.33   % |
+    | E         | 2     | 13.33   % |
+    | I         | 1     | 6.67    % |
+    | M         | 1     | 6.67    % |
+    | P         | 1     | 6.67    % |
+    | S         | 2     | 13.33   % |
+    | T         | 1     | 6.67    % |
+    | U         | 1     | 6.67    % |
+    | W         | 1     | 6.67    % |
+    | Y         | 1     | 6.67    % |
+     -------------------------------
+
+    Mode(s): A D E S (each appears 2 time(s))
+
     Percentage of Vowels: 40.0% (6 vowels)
     """
 
@@ -136,8 +167,12 @@ def letter_distribution(string: str):
             if char in VOWELS: 
                 num_vowels += 1
 
-    print("Frequency of Letters\n")
-    print("Character | Count | Frequency")
+    print("\nFrequency of Letters\n")
+
+    # Print the table of statistics.
+    print(" " + "-" * len(" Character | Count | Frequency "))
+    print("| Character | Count | Frequency |")
+    print(" " + "-" * len(" Character | Count | Frequency "))
 
     for i in range(ALPHABET_LENGTH): 
         # If the character is in the string.
@@ -148,9 +183,11 @@ def letter_distribution(string: str):
             count = chars_count[i]
             freq = round(chars_count[i] / num_chars * 100, 2) 
 
-            print("{:<{width_char}} | {:<{width_count}} | {:<{width_freq}}%"
+            print("| {:<{width_char}} | {:<{width_count}} | {:<{width_freq}}% |"
                 .format(char, count, freq, width_char = len("Character"), 
                 width_count = len("Count"), width_freq = len("Frequency")-1))
+
+    print(" " + "-" * (len("| Character | Count | Frequency |") - 2))
 
     # If the character count of a character matches 
     # the value mode, it is a mode letter.
@@ -168,7 +205,34 @@ def letter_distribution(string: str):
 
 
 def main():
-    letter_distribution("Speedway Stadium")
+    """Runs all the functions in the module."""
+
+    while True:
+        program = input("Birthday (b), Leap Year (ly), " 
+            + "Line Segment (ls), or Letter Distribution (ld): ")
+        print()
+
+        if program == "b":
+            bday = int(input('Enter your birth day: '))
+            bmonth = int(input('Enter your birth month: '))
+            day = int(input("Enter today's day: "))
+            month = int(input("Enter today's month: "))
+            birthday(bday, bmonth, day, month)
+
+        elif program == "ly": 
+            year = int(input('Enter a year: '))
+            leap_year(year)
+
+        elif program == "ls":
+            line_segment() 
+
+        elif program == "ld": 
+            string = input("Enter a word to analyze: ")
+            letter_distribution(string)
+
+        else: 
+            print("Good bye.")
+            break
 
 
 if __name__ == "__main__": 
