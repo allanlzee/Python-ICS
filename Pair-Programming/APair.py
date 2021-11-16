@@ -2,8 +2,11 @@ from math import sqrt
 
 
 def birthday():
-    """
+    """Take in the birthday month and day and the current month and day from the user 
+    and print a message accordingly. 
 
+    >>> birthday():
+    
     """
    
     bday = int(input('Enter your birth day: '))
@@ -25,9 +28,8 @@ def birthday():
 
 
 def leap_year():
-    """
-    """
-   
+    """Determine if a year given by the user is a leap year."""
+
     year = int(input('Enter a year: '))
     if year % 4 == 0:
         if year % 400 == 0:
@@ -39,6 +41,14 @@ def leap_year():
 
    
 def line_segment():
+    """Print the length of the line segment.
+    >>> line_segment()
+    Point 1 x-value: 1
+    Point 1 y-value: 1
+    Point 2 x-value: 2
+    Point 2 y-value: 2
+    >>>
+    """
     print("Enter the coordinates of two points.")
 
     x1 = float(input("Point 1 x-value: "))
@@ -97,7 +107,7 @@ def letter_distribution(string: str):
     num_vowels = 0
 
     # Track the value of the mode based on the array chars_count.
-    mode = -1
+    mode = 0
 
     for char in string: 
         if 'A' <= char <= 'Z': 
@@ -118,7 +128,7 @@ def letter_distribution(string: str):
     print("Frequency of Letters\n")
     print("Character | Count | Frequency")
 
-    for i in range(len(used_chars)): 
+    for i in range(ALPHABET_LENGTH): 
         # If the character is in the string.
         if used_chars[i]: 
             # Find the character, the number of times it appears, 
@@ -127,7 +137,7 @@ def letter_distribution(string: str):
             count = chars_count[i]
             freq = round(chars_count[i] / num_chars * 100, 2) 
 
-            print("{:{width_char}} | {:{width_count}} | {:{width_freq}}%"
+            print("{:<{width_char}} | {:<{width_count}} | {:<{width_freq}}%"
                 .format(char, count, freq, width_char = len("Character"), 
                 width_count = len("Count"), width_freq = len("Frequency")-1))
 
@@ -140,9 +150,10 @@ def letter_distribution(string: str):
     print("\nMode(s): ", end='')
     for letter in mode_letters: 
         print(letter, end=' ')
+    print("(each appears {} time(s))".format(mode))
 
     print("\nPercentage of Vowels: {}% ({} vowels)\n"
         .format(round(num_vowels / num_chars * 100, 2), num_vowels))
 
 
-letter_distribution("speedway stadium")
+letter_distribution("Speedway Stadium")
