@@ -45,7 +45,9 @@ def birthday(bday: int, bmonth: int, day: int, month: int):
 
 def leap_year(year: int):
     """Determine if a year given by the user is a leap year.
+
     >>> leap_year() 
+
     Enter a year: 2005
     The year 2005 is not a leap year.
     """
@@ -67,15 +69,22 @@ def leap_year(year: int):
    
 def line_segment():
     """Print the length of the line segment.
+
     >>> line_segment()
+    Enter the coordinates of two points.
+
     Point 1 x-value: 1
-    Point 1 y-value: 1
-    Point 2 x-value: 2
-    Point 2 y-value: 2
-    >>>
+    Point 1 y-value: 3
+    Point 2 x-value: 3
+    Point 2 y-value: 7
+
+    Your points are (1.0, 3.0) and (3.0, 7.0).
+
+    The slope of the line segment is 2.00.
+    The length of the line segment is 4.47.
     """
 
-    print("Enter the coordinates of two points.")
+    print("Enter the coordinates of two points.\n")
 
     x1 = float(input("Point 1 x-value: "))
     y1 = float(input("Point 1 y-value: "))
