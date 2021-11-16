@@ -6,8 +6,8 @@ from math import sqrt
 
 
 def birthday(bday: int, bmonth: int, day: int, month: int):
-    """Take in the birthday month and day and the current month and day from the user 
-    and print a message accordingly. 
+    """Take in the birthday month and day and the current month               
+    and day from the user and print a message accordingly. 
 
     >>> birthday()
     Enter your birth day: 5
@@ -38,7 +38,8 @@ def birthday(bday: int, bmonth: int, day: int, month: int):
         birthday_time = "has passed"
         greeting = "belated "
 
-    print("Your birthday {}. Happy {}birthday!\n".format(birthday_time, greeting))
+    print("Your birthday {}. Happy {}birthday!\n"
+        .format(birthday_time, greeting))
 
 
 def leap_year(year: int):
@@ -190,9 +191,9 @@ def letter_distribution(string: str):
             count = chars_count[i]
             freq = round(chars_count[i] / num_chars * 100, 2) 
 
-            print("| {:<{width_char}} | {:<{width_count}} | {:<{width_freq}}% |"
-                .format(char, count, freq, width_char = len("Character"), 
-                width_count = len("Count"), width_freq = len("Frequency")-1))
+            print("| {:<{w_char}} | {:<{w_count}} | {:<{w_freq}}% |"
+                .format(char, count, freq, w_char = len("Character"), 
+                w_count = len("Count"), w_freq = len("Frequency") - 1))
 
     print(" " + "-" * len(" Character | Count | Frequency "))
 
