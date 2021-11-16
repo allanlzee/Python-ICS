@@ -114,9 +114,9 @@ def computer_guessing(lower: int, upper: int):
 
 
 def main(): 
-    # dice_roll()
+    dice_roll()
     computer_guessing(1, 1000) 
+
 
 if __name__ == "__main__": 
     main() 
-

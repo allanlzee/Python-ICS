@@ -80,7 +80,7 @@ def index_of_smallest_from(xs: list, idx: int) -> int:
 
 #4 Complete the HEADER and BODY of this function.
 def swap(nums: list, start: int, end: int): 
-    """Swap, or exchange, the item at index i with the item at index j in
+    """Swap, or exchange, the item at index start with the item at index end in
     the list xs.
     
     >>> swap([5, 8, 7, 9, 1, 3, 6, 2, 4], 1, 2) 
@@ -125,7 +125,7 @@ def selection_sort(nums: list):
 #--DO NOT ALTER ANY CODE BELOW THIS LINE--#
 def main():
     print('A4 Practice: Testing the code:\n')
-    nums = [1, 3, 2, 7, 4, 9, 6, 10, 5]
+    nums = [5, 8, 7, 9, 1, 3, 6, 2, 4]
     print('A list of numbers:', nums)
     print('The smallest value is:', smallest(nums))
     print('The index of the smallest value is:', index_of_smallest(nums))
