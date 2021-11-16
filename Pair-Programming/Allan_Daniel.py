@@ -1,8 +1,6 @@
 """Pair Programming Assignment"""
 
-
 __author__ = "Allan Zhou, Daniel Hong"
-
 
 from math import sqrt
 
