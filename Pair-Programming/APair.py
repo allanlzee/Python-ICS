@@ -1,12 +1,19 @@
-from math import sqrt
+"""Pair Programming"""
 
+__author__ = "Allan Zhou, Daniel Hong"
+
+from math import sqrt
 
 def birthday():
     """Take in the birthday month and day and the current month and day from the user 
     and print a message accordingly. 
 
-    >>> birthday():
-    
+    >>> birthday()
+    Enter your birth day: 5
+    Enter your birth month: 12
+    Enter today's day: 16
+    Enter today's month: 11
+    Your birthday is approaching. Happy early birthday!
     """
    
     bday = int(input('Enter your birth day: '))
@@ -28,7 +35,11 @@ def birthday():
 
 
 def leap_year():
-    """Determine if a year given by the user is a leap year."""
+    """Determine if a year given by the user is a leap year.
+    >>> leap_year() 
+    Enter a year: 2005
+    The year 2005 is not a leap year.
+    """
 
     year = int(input('Enter a year: '))
     if year % 4 == 0:
@@ -156,4 +167,9 @@ def letter_distribution(string: str):
         .format(round(num_vowels / num_chars * 100, 2), num_vowels))
 
 
-letter_distribution("Speedway Stadium")
+def main():
+    letter_distribution("Speedway Stadium")
+
+
+if __name__ == "__main__": 
+    main()
