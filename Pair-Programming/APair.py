@@ -187,7 +187,7 @@ def letter_distribution(string: str):
                 .format(char, count, freq, width_char = len("Character"), 
                 width_count = len("Count"), width_freq = len("Frequency")-1))
 
-    print(" " + "-" * (len("| Character | Count | Frequency |") - 2))
+    print(" " + "-" * len(" Character | Count | Frequency "))
 
     # If the character count of a character matches 
     # the value mode, it is a mode letter.
