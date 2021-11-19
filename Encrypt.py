@@ -17,9 +17,7 @@ def char_filter(message: str) -> str:
     """
 
     filtered_chars = []
-
     filtered_str = ""
-    
     
     for i in range(len(message)): 
         # Append letters to filtered string. 
