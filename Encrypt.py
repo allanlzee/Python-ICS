@@ -1,5 +1,6 @@
 """"Encrypt, decrypt, generate a key, and guess the encyrption key."""
 
+
 __author__ = "Allan Zhou" 
 
 
@@ -52,6 +53,14 @@ def encrypt(message: str, key: str) -> str:
     # Filter out all non-letter characters from message and key.
     message = char_filter(message.upper())
     key = char_filter(key.upper()) 
+
+    if len(message) == 0: 
+        print("\nYour message is empty.\n")
+        return
+    
+    elif len(key) == 0: 
+        print("\nYour key is empty.\n")
+        return
 
     print("\nYour message is: {}.".format(message))
     print("Your key is {}.\n".format(key)) 
@@ -109,6 +118,14 @@ def decrypt(message: str, key: str) -> str:
     # Filter out all non-letter characters from message and key.
     message = char_filter(message.upper())
     key = char_filter(key.upper())
+
+    if len(message) == 0:
+        print("\nYour message is empty.\n")
+        return
+
+    elif len(key) == 0:
+        print("\nYour key is empty.\n")
+        return
 
     print("\nYour message is: {}.".format(message))
     print("Your key is {}.\n".format(key))
@@ -179,6 +196,14 @@ def determine_key(message: str, encrypted_message: str) -> str:
 
     if len(message) != len(encrypted_message):
         print("\nInvalid arguments were passed. Please try again.")
+        return
+    
+    elif len(message) == 0:
+        print("\nYour message is empty.\n")
+        return
+
+    elif len(encrypted_message) == 0:
+        print("\nYour key is empty.\n")
         return
 
     ALPHABET_LENGTH = 26
