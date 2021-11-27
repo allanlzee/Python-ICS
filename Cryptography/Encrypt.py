@@ -1,5 +1,6 @@
 """"Encrypt, decrypt, generate a key, and guess the encyrption key."""
 
+
 __author__ = "Allan Zhou" 
 
 
@@ -14,11 +15,11 @@ def char_filter(message: str) -> str:
     IIIHD HSN
 
     """
+    message = message.upper()
 
     filtered_chars = []
 
     filtered_str = ""
-    
     
     for i in range(len(message)): 
         # Append letters to filtered string. 
@@ -50,8 +51,16 @@ def encrypt(message: str, key: str) -> str:
     ENCRYPTION_CONVERSION = 64
 
     # Filter out all non-letter characters from message and key.
-    message = char_filter(message.upper())
-    key = char_filter(key.upper()) 
+    message = char_filter(message)
+    key = char_filter(key) 
+
+    if len(message) == 0: 
+        print("\nYour message is empty.\n")
+        return
+    
+    elif len(key) == 0: 
+        print("\nYour key is empty.\n")
+        return
 
     print("\nYour message is: {}.".format(message))
     print("Your key is {}.\n".format(key)) 
@@ -107,8 +116,16 @@ def decrypt(message: str, key: str) -> str:
     ENCRYPTION_CONVERSION = 64
 
     # Filter out all non-letter characters from message and key.
-    message = char_filter(message.upper())
-    key = char_filter(key.upper())
+    message = char_filter(message)
+    key = char_filter(key)
+
+    if len(message) == 0:
+        print("\nYour message is empty.\n")
+        return
+
+    elif len(key) == 0:
+        print("\nYour key is empty.\n")
+        return
 
     print("\nYour message is: {}.".format(message))
     print("Your key is {}.\n".format(key))
@@ -166,7 +183,6 @@ def generate_key(length: int) -> str:
 
         random_key += chr(randint(65, 90)) 
 
-
     return random_key
 
 
@@ -174,11 +190,19 @@ def determine_key(message: str, encrypted_message: str) -> str:
     """Determine the encryption key from the initial message, message, and 
     the encrypted message, encrypted_message. """
 
-    message = char_filter(message.upper())
-    encrypted_message = char_filter(encrypted_message.upper()) 
+    message = char_filter(message)
+    encrypted_message = char_filter(encrypted_message) 
 
     if len(message) != len(encrypted_message):
         print("\nInvalid arguments were passed. Please try again.")
+        return
+    
+    elif len(message) == 0:
+        print("\nYour message is empty.\n")
+        return
+
+    elif len(encrypted_message) == 0:
+        print("\nYour key is empty.\n")
         return
 
     ALPHABET_LENGTH = 26
