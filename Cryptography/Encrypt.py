@@ -186,28 +186,28 @@ def generate_key(length: int) -> str:
     return random_key
 
 
-def determine_key(message: str, encrypted_message: str) -> str:
-    """Determine the encryption key from the initial message, message, and 
-    the encrypted message, encrypted_message. """
+def determine_key(msg: str, encrypted_msg: str):
+    """Print the encryption key from the initial message, msg, and 
+    the encrypted message, encrypted_msg. """
 
-    message = char_filter(message)
-    encrypted_message = char_filter(encrypted_message)
+    msg = char_filter(msg)
+    encrypted_msg = char_filter(encrypted_msg)
 
-    if len(message) != len(encrypted_message):
-        print("\nInvalid arguments were passed. Please try again.")
-        return
-
-    elif len(message) == 0:
+    if len(msg) == 0:
         print("\nYour message is empty.\n")
         return
 
-    elif len(encrypted_message) == 0:
-        print("\nYour key is empty.\n")
+    elif len(encrypted_msg) == 0:
+        print("\nYour encrypted message is empty.\n")
         return
 
+    elif len(msg) != len(encrypted_msg):
+        print("\nYour message and encrypted message must be the same length.")
+        return
+    
     else: 
-        print("\nYour unencrypted message is: {}".format(message))
-        print("Your encrypted message is: {}".format(encrypted_message))
+        print("\nYour unencrypted message is: {}".format(msg))
+        print("Your encrypted message is: {}".format(encrypted_msg))
 
     ALPHABET_LENGTH = 26
     ASCII_CONVERSION = 64
@@ -215,21 +215,21 @@ def determine_key(message: str, encrypted_message: str) -> str:
     key = ""
 
     # Message and encrypted_message should be the same length.
-    for i in range(len(message)):
-        if message[i] == " ":
+    for i in range(len(msg)):
+        if msg[i] == " ":
             continue
 
         # Figure out the size of the letter shift.
-        letter_shift = ord(encrypted_message[i]) - ord(message[i])
+        letter_shift = ord(encrypted_msg[i]) - ord(msg[i])
 
         # Rotate to end of the alphabet.
-        if letter_shift <= 0:
-            letter_shift = ALPHABET_LENGTH - letter_shift
+        if letter_shift < 1:
+            letter_shift = ALPHABET_LENGTH - abs(letter_shift)
 
         key += chr(letter_shift + ASCII_CONVERSION)
 
     key = shortest_repeating_substring(key)
-    return key
+    print("The encryption key used is: {}".format(key))
 
 
 def shortest_repeating_substring(string: str) -> str:
@@ -323,8 +323,7 @@ def main():
             message = input("Enter the unencrypted message: ")
             encrypted_message = input("Enter the encrypted message: ")
 
-            print("The encryption key is: {}.".format(
-                determine_key(message, encrypted_message)))
+            determine_key(message, encrypted_message)
 
         else:
             print("Good bye.\n")
