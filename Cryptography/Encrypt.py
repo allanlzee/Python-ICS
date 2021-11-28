@@ -177,12 +177,10 @@ def generate_key(length: int) -> str:
     random_key = ""
 
     for i in range(length):
-        # Space out key characters in chunks of 5.
-        if i % 5 == 0 and i != 0:
-            random_key += " "
-
         random_key += chr(randint(65, 90))
 
+    # Change key into proper format of 5 character chunks.
+    random_key = char_filter(random_key)
     return random_key
 
 
