@@ -12,8 +12,7 @@ def char_filter(message: str) -> str:
     with letters that have all been capitalized.
 
     >>> char_filter("IIIHDHSN&(#^@*")
-    IIIHD HSN
-
+    "IIIHD HSN"
     """
     message = message.upper()
 
@@ -40,7 +39,6 @@ def encrypt(message: str, key: str) -> str:
 
     >>> encrypt("ABABABCSBHFS", "ZAP")
     "ACQBB RCTRH GI"
-
     """
 
     ASCII_CONVERSION = 26
@@ -163,7 +161,7 @@ def generate_key(length: int) -> str:
     captialized and spaced in chunks of 5 letters.
 
     >>> generate_key(10) 
-    HSJEH SJACW
+    "HSJEH SJACW" 
     """
 
     random_key = ""
@@ -226,10 +224,13 @@ def shortest_repeating_substring(string: str) -> str:
     """Return the shortest repeating substring in string.
 
     >>> shortest_repeating_substring("AAAAAA") 
-    A
+    "A"
 
     >>> shortest_repeating_substring("ABCABCABCAB")
-    ABC
+    "ABC" 
+
+    >>> shortest_repeating_substring("ABCDEFGH")
+    "ABCDEFGH"
     """
 
     curr_substring = ""
