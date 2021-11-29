@@ -1,5 +1,9 @@
-"""Easily encrypt and decrypt text"""
+"""This program performs encryption, decryption, key generation, and 
+key determination. """
+
+
 import random
+
 
 __author__ = "Gabriel Dinner-David, Allan Zhou"
 
@@ -13,6 +17,9 @@ def chunked_string(letters: str) -> str:
 
     >>> chunked_string("ABCDE") 
     "ABCDE" 
+
+    >>> chunked_string("HFSKAFHEF")
+    "HFSKA FHEF" 
     """
 
     string = ""
@@ -26,7 +33,7 @@ def chunked_string(letters: str) -> str:
     return string
 
 
-def get_int(prompt: str = None) -> int:
+def get_int(prompt: str) -> int:
     """Return a user inputted integer with prompt prompt."""
 
     while True:
@@ -36,16 +43,48 @@ def get_int(prompt: str = None) -> int:
             print("Invalid input. Please try again.\n")
 
 
-def get_str(prompt: str = None) -> str:
+def get_str(prompt: str) -> str:
     """Get a string and filter out all characters not between A and Z.
     Return the filtered string. """
 
     string = input(prompt)
     letters = ""
+
     for char in string:
         if "A" <= char.upper() <= "Z":
             letters += char.upper()
+
     return letters
+
+
+def validate_text(text: str) -> bool:
+    """Return False if either message or key is empty.
+    Otherwise, return True."""
+
+    if len(text) == 0:
+        return False
+
+    else:
+        return True
+
+
+def validate_messages(plaintext: str, ciphertext: str) -> bool: 
+    """Validate the strings plaintext and ciphertext. 
+    Return True is valid and False if invalid."""
+
+    if not validate_text(plaintext):
+        print("Your message is empty. Please try again.\n")
+        return False
+
+    elif not validate_text(ciphertext):
+        print("Your key is empty. Please try again.\n")
+        return False
+
+    elif len(plaintext) != len(ciphertext):
+        print("Your message and encrypted message must be the same length.\n")
+        return False 
+
+    return True
 
 
 def get_key() -> str:
@@ -53,13 +92,15 @@ def get_key() -> str:
 
     while True:
         key = get_str("A key is any string of letters (1-500 chars): ")
+
         if 0 < len(key) < 501:
             print("Using encryption key: {}\n".format(key))
             return key
+
         print("Invalid length.\n")
 
 
-def gen_key(length: int) -> str:
+def generate_key(length: int) -> str:
     """Generate a string with length characters."""
 
     key = ""
@@ -81,6 +122,7 @@ def main_menu():
         "4. Determine key.\n" + 
         "5. Exit.\n"
     )
+
     while True:
         choice = get_int("> ")
         if 0 < choice < 5:
@@ -88,7 +130,7 @@ def main_menu():
         print("Invalid choice. Try again.")
 
 
-def encrypt_menu() -> tuple:
+def encrypt_menu() -> tuple[str, str]:
     """Get plaintext and a key from the user and print out the chunked 
     version of it. Return the plaintext and key as strings."""
 
@@ -113,7 +155,7 @@ def key_gen_menu() -> int:
         print("Invalid length.\n")
 
 
-def decrypt_menu() -> tuple:
+def decrypt_menu() -> tuple[str, str]:
     """Get ciphertext and a key from the user and print out the chunked 
     version of it. Return the ciphertext and key as strings."""
 
@@ -123,7 +165,7 @@ def decrypt_menu() -> tuple:
     return ciphertext, get_key()
 
 
-def key_menu() -> tuple: 
+def key_menu() -> tuple[str, str]: 
     """Get plaintext and ciphertext from the user and print out the chunked 
     version of it. Return the plaintext and ciphertext as strings."""
 
@@ -135,31 +177,6 @@ def key_menu() -> tuple:
 
     return plaintext, ciphertext
 
-
-def combine_letters(first: str, second: str, sign: int) -> str:
-    """Encrypt character first using character key second if sign is positive.
-    Decrypt character first using character key second if sign is negative."""
-
-    char_total = ord(first) + sign*(ord(second) - 64)
-
-    if char_total > 90:
-        return chr(char_total - 26)
-
-    if char_total < 65:
-        return chr(char_total + 26)
-
-    return chr(char_total)
-
-
-def validate_text(text: str) -> bool: 
-    """Return False if either message or key is empty.
-    Otherwise, return True."""
-    
-    if len(text) == 0:
-        return False
-
-    else: 
-        return True 
 
 def easycrypt(message: str, key: str, decrypt = False) -> str:
     """Return the decrypted version of message using encryption key, key.
@@ -202,12 +219,12 @@ def easycrypt(message: str, key: str, decrypt = False) -> str:
         # The magnitube of the character shift is the letter's alphabet spot.
         key_convert = ord(key[key_counter]) - ENCRYPTION_CONVERSION
 
+        # Encryption 
         if not decrypt: 
             if chr(curr_msg_char + key_convert) > "Z":
                 curr_msg_char -= ASCII_CONVERSION
 
             new_msg_char = chr(curr_msg_char + key_convert)
-            crypted_message += new_msg_char
 
         elif decrypt:
             # Ensure that the encrypted character does not become a non-letter.
@@ -215,52 +232,18 @@ def easycrypt(message: str, key: str, decrypt = False) -> str:
                 curr_msg_char += ASCII_CONVERSION
 
             new_msg_char = chr(curr_msg_char - key_convert)
-            crypted_message += new_msg_char
+        
+        crypted_message += new_msg_char
 
         key_counter += 1
 
     return crypted_message
 
 
-def fill_plaintext(plaintext: str):
-    letters_needed = 5 - len(plaintext) % 5
-    if letters_needed == 5:
-        letters_needed = 0
-    return plaintext + gen_key(letters_needed)
-
-
-def fill_key(key: str, text: str):
-    while len(key) < len(text):
-        key += (key[-1])
-    return key
-
-
-def validate_messages(plaintext: str, ciphertext: str) -> bool: 
-    """Validate the strings plaintext and ciphertext. 
-    Return True is valid and False if invalid."""
-
-    if not validate_text(plaintext):
-        print("Your message is empty.\n")
-        return False
-
-    elif not validate_text(ciphertext):
-        print("Your key is empty.\n")
-        return False
-
-    elif len(plaintext) != len(ciphertext):
-        print("\nYour message and encrypted message must be the same length.")
-        return False 
-
-    return True
-
-
 def determine_key(msg: str, encrypted_msg: str):
     """Print the encryption key from the initial message, msg, and 
     the encrypted message, encrypted_msg. """
     
-    print("\nYour unencrypted message is: {}".format(msg))
-    print("Your encrypted message is: {}".format(encrypted_msg))
-
     ALPHABET_LENGTH = 26
     ASCII_CONVERSION = 64
 
@@ -349,11 +332,13 @@ def shortest_repeating_substring(string: str) -> str:
 
 
 def main():
-    """Run's the whole easycrypt with nice menu's"""
+    """Runs easycrypt with menu options for encryption, decryption, key
+    generation, key determination, and exiting."""
+    
     print(
-        """----------------------------------
-EasyCrypt Text Encryptor/Decryptor
-----------------------------------"""
+        "----------------------------------\n" + 
+        "EasyCrypt Text Encryptor/Decryptor\n" + 
+        "----------------------------------"
     )
 
     while True:
@@ -376,20 +361,14 @@ EasyCrypt Text Encryptor/Decryptor
         elif choice == 3:
             print()
             length = key_gen_menu()
-            key_string = ""
-            for letter in gen_key(length):
-                key_string += letter
-            print(key_string)
+            print(generate_key(length))
             print()
 
         elif choice == 4: 
             print() 
             plaintext, ciphertext = key_menu()
 
-            if not validate_messages(plaintext, ciphertext):
-                continue
-
-            else:
+            if validate_messages(plaintext, ciphertext):
                 key = determine_key(plaintext, ciphertext)
                 print("The encryption key used is: {}\n".format(key))
 
