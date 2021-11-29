@@ -8,6 +8,7 @@ import random
 __author__ = "Gabriel Dinner-David, Allan Zhou"
 
 
+# Gaby
 def chunked_string(letters: str) -> str:
     """Space out the string letters in chunks of 5 letters, separacted by a 
     space. Return the new string.
@@ -33,6 +34,7 @@ def chunked_string(letters: str) -> str:
     return string
 
 
+# Gaby
 def get_int(prompt: str) -> int:
     """Return a user inputted integer with prompt prompt."""
 
@@ -43,6 +45,7 @@ def get_int(prompt: str) -> int:
             print("Invalid input. Please try again.\n")
 
 
+# Gaby 
 def get_str(prompt: str) -> str:
     """Get a string and filter out all characters not between A and Z.
     Return the filtered string. """
@@ -57,6 +60,7 @@ def get_str(prompt: str) -> str:
     return letters
 
 
+# Allan 
 def validate_text(text: str) -> bool:
     """Return False if either message or key is empty.
     Otherwise, return True."""
@@ -68,6 +72,7 @@ def validate_text(text: str) -> bool:
         return True
 
 
+# Allan 
 def validate_messages(plaintext: str, ciphertext: str) -> bool: 
     """Validate the strings plaintext and ciphertext. 
     Return True is valid and False if invalid."""
@@ -87,6 +92,7 @@ def validate_messages(plaintext: str, ciphertext: str) -> bool:
     return True
 
 
+# Gaby 
 def get_key() -> str:
     """Return a string with a length of 1-500, spaced out in chunks of 5."""
 
@@ -100,6 +106,7 @@ def get_key() -> str:
         print("Invalid length.\n")
 
 
+# Gaby 
 def generate_key(length: int) -> str:
     """Generate a string with length characters."""
 
@@ -111,6 +118,7 @@ def generate_key(length: int) -> str:
     return key
 
 
+# Gaby 
 def main_menu():
     """Print the easycrypt menu and return a valid user inputted choice."""
 
@@ -130,6 +138,7 @@ def main_menu():
         print("Invalid choice. Try again.")
 
 
+# Allan
 def encrypt_menu() -> tuple[str, str]:
     """Get plaintext and a key from the user and print out the chunked 
     version of it. Return the plaintext and key as strings."""
@@ -140,6 +149,7 @@ def encrypt_menu() -> tuple[str, str]:
     return plaintext, get_key()
 
 
+# Gaby 
 def key_gen_menu() -> int:
     """Print the key generation menu and return a user inputted length.
     Ensure that the inputted integer length is between 1 and 500."""
@@ -155,6 +165,7 @@ def key_gen_menu() -> int:
         print("Invalid length.\n")
 
 
+# Gaby 
 def decrypt_menu() -> tuple[str, str]:
     """Get ciphertext and a key from the user and print out the chunked 
     version of it. Return the ciphertext and key as strings."""
@@ -165,6 +176,7 @@ def decrypt_menu() -> tuple[str, str]:
     return ciphertext, get_key()
 
 
+# Gaby
 def key_menu() -> tuple[str, str]: 
     """Get plaintext and ciphertext from the user and print out the chunked 
     version of it. Return the plaintext and ciphertext as strings."""
@@ -178,6 +190,7 @@ def key_menu() -> tuple[str, str]:
     return plaintext, ciphertext
 
 
+# Allan
 def easycrypt(message: str, key: str, decrypt = False) -> str:
     """Return the decrypted version of message using encryption key, key.
 
@@ -240,6 +253,7 @@ def easycrypt(message: str, key: str, decrypt = False) -> str:
     return crypted_message
 
 
+# Allan 
 def determine_key(msg: str, encrypted_msg: str):
     """Print the encryption key from the initial message, msg, and 
     the encrypted message, encrypted_msg. """
@@ -266,6 +280,7 @@ def determine_key(msg: str, encrypted_msg: str):
     return shortest_repeating_substring(key)
     
 
+# Allan 
 def shortest_repeating_substring(string: str) -> str:
     """Return the shortest repeating substring in string.
 
@@ -331,6 +346,7 @@ def shortest_repeating_substring(string: str) -> str:
                     return key
 
 
+# Gaby and Allan
 def main():
     """Runs easycrypt with menu options for encryption, decryption, key
     generation, key determination, and exiting."""
