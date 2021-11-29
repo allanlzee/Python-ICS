@@ -292,7 +292,7 @@ def main():
         print()
 
         if program == "1":
-            message = input("Enter a message to encrypt: ")
+            message = input("Please enter text to encrypt: ")
             key = input("Enter a key to decrypt with: ")
 
             print("The encrypted message is: {}.".format(encrypt(message, key)))
