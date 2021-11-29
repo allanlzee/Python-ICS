@@ -39,11 +39,7 @@ def encrypt(message: str, key: str) -> str:
     """Return the encrypted version of message using encryption key, key.
 
     >>> encrypt("ABABABCSBHFS", "ZAP")
-
-    Your message is: ABABA BCSBH FS.
-    Your key is ZAP.
-
-    The encrypted message is: ACQBB RCTRH GI.
+    "ACQBB RCTRH GI"
 
     """
 
@@ -105,11 +101,7 @@ def decrypt(message: str, key: str) -> str:
     """Return the decrypted version of message using encryption key, key.
 
     >>> decrypt("ABCDEFGHIJKLMNOP", "ABCD")
-
-    Your message is: ABCDE FGHIJ KLMNO P.
-    Your key is ABCD.
-
-    The decrypted message is: ZZZZD DDDHH HHLLL L.
+    "ZZZZD DDDHH HHLLL L" 
     """
 
     ASCII_CONVERSION = 26
