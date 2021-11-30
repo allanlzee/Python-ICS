@@ -126,6 +126,9 @@ def combine_letters(first: str, second: str, sign: int) -> str:
     if char_total > 90:
         return chr(char_total - 26)
 
+    elif char_total < 65: 
+        return chr(char_total + 26)
+
     return chr(char_total)
     
 

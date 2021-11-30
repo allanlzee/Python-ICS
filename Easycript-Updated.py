@@ -86,7 +86,7 @@ def generate_key(length: int) -> str:
     return key
 
 
-# Gaby 
+# Gaby
 def main_menu():
     """Print the easycrypt menu and return a valid user inputted choice."""
 
@@ -126,7 +126,8 @@ def key_gen_menu() -> int:
 
     MAX_LENGTH = 500
 
-    print("Generate an encryption key comprised of random characters (max 500).")
+    print("Generate an encryption key comprised of random characters " 
+        + "(max 500).")
     
     while True:
         length = get_int("Enter the desired length of key: ")
@@ -199,7 +200,7 @@ def easycrypt(message: str, key: str, decrypt = False) -> str:
     "HELLO WORLD" 
     """
 
-    crypted_message = ""
+    new_message = ""
 
     # Iterate through the string key to encrypt the message.
     key_counter = 0
@@ -211,21 +212,19 @@ def easycrypt(message: str, key: str, decrypt = False) -> str:
 
         # Encryption 
         if not decrypt: 
-            new_msg_char = combine_letters(message[i], key[key_counter], 1)
+            new_message += combine_letters(message[i], key[key_counter], 1)
 
         # Decryption
-        elif decrypt:
-            new_msg_char = combine_letters(message[i], key[key_counter], -1)
-        
-        crypted_message += new_msg_char
+        else:
+            new_message += combine_letters(message[i], key[key_counter], -1)
 
         key_counter += 1
 
-    return crypted_message
+    return new_message
 
 
 # Allan 
-def determine_key(msg: str, encrypted_msg: str):
+def determine_key(msg: str, encrypted_msg: str) -> str:
     """Print the encryption key from the initial message, msg, and 
     the encrypted message, encrypted_msg. """
     
@@ -290,7 +289,8 @@ def shortest_repeating_substring(string: str) -> str:
                 continue
 
             else:
-                # Check remaining letters for partial occurence of the substring.
+                # Check remaining letters for partial occurence 
+                # of the substring.
                 shortest_substring = curr_substring
                 is_matching = True
 
@@ -301,7 +301,6 @@ def shortest_repeating_substring(string: str) -> str:
                         is_matching = False
 
                     else:
-                        # Iterate through the characters in shortest_substring.
                         substring_index += 1
 
                 if is_matching:
