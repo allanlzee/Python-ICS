@@ -101,13 +101,15 @@ def main_menu():
 
     while True:
         choice = get_int("> ")
-        if 0 < choice < 5:
+
+        if 1 <= choice <= 5:
             return choice
+        
         print("Invalid choice. Try again.")
 
 
 # Allan
-def encrypt_menu() -> tuple(str, str):
+def encrypt_menu() -> tuple:
     """Get plaintext and a key from the user and print out the chunked 
     version of it. Return the plaintext and key as strings."""
 
@@ -122,19 +124,21 @@ def key_gen_menu() -> int:
     """Print the key generation menu and return a user inputted length.
     Ensure that the inputted integer length is between 1 and 500."""
 
+    MAX_LENGTH = 500
+
     print("Generate an encryption key comprised of random characters (max 500).")
     
     while True:
         length = get_int("Enter the desired length of key: ")
 
-        if 0 < length < 501:
+        if 0 < length <= MAX_LENGTH:
             return length
 
         print("Invalid length.\n")
 
 
 # Gaby 
-def decrypt_menu() -> tuple(str, str):
+def decrypt_menu() -> tuple:
     """Get ciphertext and a key from the user and print out the chunked 
     version of it. Return the ciphertext and key as strings."""
 
@@ -145,7 +149,7 @@ def decrypt_menu() -> tuple(str, str):
 
 
 # Gaby
-def key_menu() -> tuple(str, str): 
+def key_menu() -> tuple: 
     """Get plaintext and ciphertext from the user and print out the chunked 
     version of it. Return the plaintext and ciphertext as strings."""
 
@@ -158,53 +162,60 @@ def key_menu() -> tuple(str, str):
     return plaintext, ciphertext
 
 
-# Allan
-def easycrypt(message: str, key: str, decrypt = False) -> str:
-    """Return the decrypted version of message using encryption key, key.
+# Gaby and Allan
+def combine_letters(first: str, second: str, sign: int) -> str:
+    """Encrypt character first using character key second if sign is positive.
+    Decrypt character first using character key second if sign is negative.
+    
+    >>> combine_letters("A", "B", 1)
+    "C" 
 
-    >>> decrypt("ABCDEFGHIJKLMNOP", "ABCD", True)
-    "ZZZZD DDDHH HHLLL L" 
+    >>> combine_letters("Z", "F", -1) 
+    "T"
     """
 
     ASCII_CONVERSION = 26
     ENCRYPTION_CONVERSION = 64
+
+    char_total = ord(first) + sign*(ord(second) - ENCRYPTION_CONVERSION)
+
+    if chr(char_total) > "Z":
+        return chr(char_total - ASCII_CONVERSION)
+
+    elif chr(char_total) < "A": 
+        return chr(char_total + ASCII_CONVERSION)
+
+    return chr(char_total)
+    
+
+# Allan
+def easycrypt(message: str, key: str, decrypt = False) -> str:
+    """Return the decrypted version of message using encryption key, key.
+
+    >>> easycrypt("HELLO WORLD", "ABC")
+    "IGOMQ ZPTOE" 
+
+    >>> easycrypt("IGOMQ ZPTOE", "ABC", True)
+    "HELLO WORLD" 
+    """
 
     crypted_message = ""
 
     # Iterate through the string key to encrypt the message.
     key_counter = 0
 
-    for i in range(len(message)):
-        # Spaces should simply be added to the encrypted message.
-        if message[i] == " ":
-            crypted_message += " "
-            continue
-
-        # Rptate back to the first index of the key.
+    for i in range(len(message)): 
+        # Rotate back to the first index of the key.
         if key_counter == len(key):
             key_counter = 0
 
-        if key[key_counter] == " ":
-            key_counter += 1
-
-        curr_msg_char = ord(message[i])
-
-        # The magnitube of the character shift is the letter's alphabet spot.
-        key_convert = ord(key[key_counter]) - ENCRYPTION_CONVERSION
-
         # Encryption 
         if not decrypt: 
-            if chr(curr_msg_char + key_convert) > "Z":
-                curr_msg_char -= ASCII_CONVERSION
+            new_msg_char = combine_letters(message[i], key[key_counter], 1)
 
-            new_msg_char = chr(curr_msg_char + key_convert)
-
+        # Decryption
         elif decrypt:
-            # Ensure that the encrypted character does not become a non-letter.
-            if chr(curr_msg_char - key_convert) < "A":
-                curr_msg_char += ASCII_CONVERSION
-
-            new_msg_char = chr(curr_msg_char - key_convert)
+            new_msg_char = combine_letters(message[i], key[key_counter], -1)
         
         crypted_message += new_msg_char
 
@@ -345,9 +356,11 @@ def main():
             plaintext, ciphertext = key_menu()
 
             key = determine_key(plaintext, ciphertext)
+
             print("The encryption key used is: {}\n".format(key))
 
         elif choice == 5:
+            print(combine_letters("Z", "F", -1))
             break
 
     print("\nThank you for using EasyCrypt. Goodbye.")
