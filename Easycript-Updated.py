@@ -108,7 +108,7 @@ def main_menu():
         print("Invalid choice. Try again.")
 
 
-# Gaby (code) and Allan (header and function docstring)
+# Gaby (header, body) and Allan (header and function docstring)
 def encrypt_menu() -> tuple:
     """Get plaintext and a key from the user and print out the chunked 
     version of it. Return the plaintext and key as strings."""
@@ -119,7 +119,7 @@ def encrypt_menu() -> tuple:
     return plaintext, get_key()
 
 
-# Allan
+# Gaby (body) and Allan (docstring)
 def key_gen_menu() -> int:
     """Print the key generation menu and return a user inputted length.
     Ensure that the inputted integer length is between 1 and 500."""
@@ -357,10 +357,9 @@ def main():
             print("The encryption key used is: {}\n".format(key))
 
         elif choice == 5:
-            print(combine_letters("Z", "F", -1))
             break
 
-    print("\nThank you for using EasyCrypt. Goodbye.")
+    print("\nThank you for using Easycrypt. Goodbye.")
 
 
 if __name__ == "__main__":
