@@ -8,7 +8,7 @@ import random
 __author__ = "Gabriel Dinner-David, Allan Zhou"
 
 
-# Gaby
+# Gaby (code) and Allan (docstring and examples)
 def chunked_string(letters: str) -> str:
     """Space out the string letters in chunks of 5 letters, separacted by a 
     space. Return the new string.
@@ -34,7 +34,7 @@ def chunked_string(letters: str) -> str:
     return string
 
 
-# Gaby
+# Gaby (code) and Allan (docstring)
 def get_int(prompt: str) -> int:
     """Return a user inputted integer with prompt prompt."""
 
@@ -45,7 +45,7 @@ def get_int(prompt: str) -> int:
             print("Invalid input. Please try again.\n")
 
 
-# Gaby 
+# Gaby (code) and Allan (docstring)
 def get_str(prompt: str) -> str:
     """Get a string and filter out all characters not between A and Z.
     Return the filtered string. """
@@ -108,7 +108,7 @@ def main_menu():
         print("Invalid choice. Try again.")
 
 
-# Allan
+# Gaby (code) and Allan (header and function docstring)
 def encrypt_menu() -> tuple:
     """Get plaintext and a key from the user and print out the chunked 
     version of it. Return the plaintext and key as strings."""
@@ -119,7 +119,7 @@ def encrypt_menu() -> tuple:
     return plaintext, get_key()
 
 
-# Gaby 
+# Allan
 def key_gen_menu() -> int:
     """Print the key generation menu and return a user inputted length.
     Ensure that the inputted integer length is between 1 and 500."""
@@ -149,7 +149,7 @@ def decrypt_menu() -> tuple:
     return ciphertext, get_key()
 
 
-# Gaby
+# Gaby (code) and Allan (header, docstring)
 def key_menu() -> tuple: 
     """Get plaintext and ciphertext from the user and print out the chunked 
     version of it. Return the plaintext and ciphertext as strings."""
@@ -163,7 +163,7 @@ def key_menu() -> tuple:
     return plaintext, ciphertext
 
 
-# Gaby and Allan
+# Gaby (code) and Allan (docstring, examples)
 def combine_letters(first: str, second: str, sign: int) -> str:
     """Encrypt character first using character key second if sign is positive.
     Decrypt character first using character key second if sign is negative.
@@ -353,9 +353,7 @@ def main():
         elif choice == 4: 
             print() 
             plaintext, ciphertext = key_menu()
-
             key = determine_key(plaintext, ciphertext)
-
             print("The encryption key used is: {}\n".format(key))
 
         elif choice == 5:
