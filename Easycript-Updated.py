@@ -60,38 +60,6 @@ def get_str(prompt: str) -> str:
     return letters
 
 
-# Allan 
-def validate_text(text: str) -> bool:
-    """Return False if either message or key is empty.
-    Otherwise, return True."""
-
-    if len(text) == 0:
-        return False
-
-    else:
-        return True
-
-
-# Allan 
-def validate_messages(plaintext: str, ciphertext: str) -> bool: 
-    """Validate the strings plaintext and ciphertext. 
-    Return True is valid and False if invalid."""
-
-    if not validate_text(plaintext):
-        print("Your message is empty. Please try again.\n")
-        return False
-
-    elif not validate_text(ciphertext):
-        print("Your key is empty. Please try again.\n")
-        return False
-
-    elif len(plaintext) != len(ciphertext):
-        print("Your message and encrypted message must be the same length.\n")
-        return False 
-
-    return True
-
-
 # Gaby 
 def get_key() -> str:
     """Return a string with a length of 1-500, spaced out in chunks of 5."""
@@ -139,7 +107,7 @@ def main_menu():
 
 
 # Allan
-def encrypt_menu() -> tuple[str, str]:
+def encrypt_menu() -> tuple(str, str):
     """Get plaintext and a key from the user and print out the chunked 
     version of it. Return the plaintext and key as strings."""
 
@@ -166,7 +134,7 @@ def key_gen_menu() -> int:
 
 
 # Gaby 
-def decrypt_menu() -> tuple[str, str]:
+def decrypt_menu() -> tuple(str, str):
     """Get ciphertext and a key from the user and print out the chunked 
     version of it. Return the ciphertext and key as strings."""
 
@@ -177,7 +145,7 @@ def decrypt_menu() -> tuple[str, str]:
 
 
 # Gaby
-def key_menu() -> tuple[str, str]: 
+def key_menu() -> tuple(str, str): 
     """Get plaintext and ciphertext from the user and print out the chunked 
     version of it. Return the plaintext and ciphertext as strings."""
 
@@ -200,14 +168,6 @@ def easycrypt(message: str, key: str, decrypt = False) -> str:
 
     ASCII_CONVERSION = 26
     ENCRYPTION_CONVERSION = 64
-
-    if not validate_text(message): 
-        print("Your message is empty.\n")
-        return 
-    
-    elif not validate_text(key): 
-        print("Your key is empty.\n")
-        return
 
     crypted_message = ""
 
@@ -263,8 +223,8 @@ def determine_key(msg: str, encrypted_msg: str):
 
     key = ""
 
-    # Message and encrypted_message should be the same length.
-    for i in range(len(msg)):
+    # Determine key using the shorter string between msg and encrypted_msg. 
+    for i in range(min(len(msg), len(encrypted_msg))):
         if msg[i] == " ":
             continue
 
@@ -384,9 +344,8 @@ def main():
             print() 
             plaintext, ciphertext = key_menu()
 
-            if validate_messages(plaintext, ciphertext):
-                key = determine_key(plaintext, ciphertext)
-                print("The encryption key used is: {}\n".format(key))
+            key = determine_key(plaintext, ciphertext)
+            print("The encryption key used is: {}\n".format(key))
 
         elif choice == 5:
             break
