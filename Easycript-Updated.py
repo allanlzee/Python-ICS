@@ -96,7 +96,7 @@ def main_menu():
         "2. Decrypt ciphertext.\n" + 
         "3. Generate key.\n" + 
         "4. Determine key.\n" + 
-        "5. Exit.\n"
+        "5. Exit."
     )
 
     while True:
@@ -130,7 +130,7 @@ def key_gen_menu() -> int:
         + "(max 500).")
     
     while True:
-        length = get_int("Enter the desired length of key: ")
+        length = get_int("\nEnter the desired length of key: ")
 
         if 0 < length <= MAX_LENGTH:
             return length
@@ -149,7 +149,7 @@ def decrypt_menu() -> tuple:
     return ciphertext, get_key()
 
 
-# Gaby (code) and Allan (header, docstring)
+# Allan
 def key_menu() -> tuple: 
     """Get plaintext and ciphertext from the user and print out the chunked 
     version of it. Return the plaintext and ciphertext as strings."""
@@ -347,6 +347,7 @@ def main():
         elif choice == 3:
             print()
             length = key_gen_menu()
+            print("Your new encryption key: ")
             print(generate_key(length))
             print()
 
@@ -354,12 +355,10 @@ def main():
             print() 
             plaintext, ciphertext = key_menu()
             key = determine_key(plaintext, ciphertext)
-            print("The encryption key used is: {}\n".format(key))
+            print("The encryption key used is: \n{}\n".format(key))
 
         elif choice == 5:
             break
-
-    print("\nThank you for using Easycrypt. Goodbye.")
 
 
 if __name__ == "__main__":
