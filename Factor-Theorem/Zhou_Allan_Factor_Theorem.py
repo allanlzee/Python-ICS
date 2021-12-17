@@ -38,8 +38,7 @@ def get_coefficients() -> list:
         try: 
             coefficients.append(int(num))
         except ValueError: 
-            print("Invalid input, all coefficients must be integers.")
-            print()
+            print("Invalid input, all coefficients must be integers.\n")
             return None 
 
     return coefficients 
@@ -100,8 +99,8 @@ def simplify_polynomial(coefficients: list) -> list:
 
 
 def calculate_degree(coefficients: list) -> int: 
-    """Return the degree of the polynomial represented by integer coefficients
-    in list coefficients. Note that the last coefficient represents a constant. 
+    """Return the degree of the polynomial represented by integer coefficients 
+    in list coefficients. coefficients has been cleared of leading zeros. 
     
     >>> get_degree([1, 0, 1])
     2 
@@ -111,9 +110,7 @@ def calculate_degree(coefficients: list) -> int:
     
     # Calculate the degree of the polynomial, which is the highest degree of 
     # all the monomial terms with non-zero coefficients. 
-    degree = len(coefficients) - 1
-
-    return degree 
+    return len(coefficients) - 1
 
 
 def determine_polynomial(coefficients: list, degree: int) -> str: 
