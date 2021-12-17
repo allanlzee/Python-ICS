@@ -333,7 +333,7 @@ def main_menu():
         "separated by spaces.\n")
 
     while True: 
-        print("1. Calculate linear factors of polynomial.\n" +
+        print("1. Calculate linear factors of a polynomial.\n" +
             "2. Exit.")
 
         program = get_user_choice()
