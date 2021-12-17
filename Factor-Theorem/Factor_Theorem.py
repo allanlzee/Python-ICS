@@ -14,16 +14,13 @@ def get_user_choice() -> str:
     or exiting the program (2)."""
 
     while True: 
-        try:
-            program = input("> ").strip()
-            if program == "1" or program == "2": 
-                break
-            else: 
-                print("Invalid choice. \n")
-        except ValueError: 
-            print("Invalid input. \n")
+        program = input("> ").strip()
 
-    return program
+        # Ensure user enters valid choice.
+        if program == "1" or program == "2": 
+            return program
+        else: 
+            print("Invalid choice. \n")
 
 
 def get_coefficients() -> list: 
@@ -61,6 +58,7 @@ def remove_leading_zeros(coefficients: list) -> list:
 
     index = 0 
     
+    # Find index of first non-zero integer in coefficients.
     while coefficients[index] == 0: 
         index += 1 
 
@@ -85,7 +83,7 @@ def calculate_degree(coefficients: list) -> int:
 
 
 def determine_polynomial(coefficients: list, degree: int) -> str: 
-    """Print a polynomial with coefficients coefficients and degrees.
+    """Print a polynomial represented by list coefficients.
     
     >>> determine_polynomial([1, 0, 7, 6, 2], 4) 
     x^4 + 7x^2 + 6x + 2
@@ -96,29 +94,37 @@ def determine_polynomial(coefficients: list, degree: int) -> str:
     
     polynomial = "" 
 
+    # Remove leading and trailing zeros from the coefficients list.
     coefficients = simplify_polynomial(remove_leading_zeros(coefficients)) 
 
     for index in range(len(coefficients)): 
+        current_coefficient = coefficients[index]
+
         # There is no term to add to the polynomial.
-        if coefficients[index] == 0: 
+        if current_coefficient == 0:
             degree -= 1
             continue 
         
         # Add the constant term without any x variable.
         elif degree == 0: 
-            polynomial += str(coefficients[index])
+            polynomial += str(current_coefficient)
             break
         
+        # If the coefficient is -1, it is represented by a - sign.
+        elif current_coefficient == -1:
+            polynomial += "-"
+
         # If the coefficient is 1, it does not have to be included.
-        elif coefficients[index] != 1: 
-            polynomial += str(coefficients[index])
+        elif current_coefficient != 1:
+            polynomial += str(current_coefficient)
 
         # Add the variable x and exponents to the polynomial.
-        # degree > 1 ignores the term with x^1 and constants.
+        # nx^1 will be written as nx. 
         if index != len(coefficients) - 1 and degree > 1: 
             polynomial += "x^" + str(degree) + " + "
         
-        # The polynomial ends with a non-constant term.
+        # The polynomial ends with a non-constant term with an exponent 
+        # greater than 1.
         elif degree > 1: 
             polynomial += "x^" + str(degree)
 
@@ -126,12 +132,17 @@ def determine_polynomial(coefficients: list, degree: int) -> str:
         elif index != len(coefficients) - 1: 
             polynomial += "x + "
 
+        # The polynomial's last term is nx, where n is the coefficient.
+        else: 
+            polynomial += "x"
+
         degree -= 1
         
     return polynomial
 
 
-def calculate_polynomial(coefficients: list, input: Fraction) -> Fraction: 
+def calculate_polynomial(coefficients: list, degree: int, 
+                        input: Fraction) -> Fraction: 
     """Calculate the value of the polynomial represented by coefficients
     when x is equal to input. 
 
@@ -146,7 +157,6 @@ def calculate_polynomial(coefficients: list, input: Fraction) -> Fraction:
     """
 
     polynomial_value = 0 
-    degree = calculate_degree(coefficients)
 
     for num in coefficients: 
         polynomial_value += num * input ** degree 
@@ -201,6 +211,8 @@ def determine_possible_factors(coefficients: list) -> list:
     leading = abs(coefficients[0])
     constant = abs(coefficients[-1])
 
+    # Start with 0 as a possible factor, since polynomials with no constant 
+    # have a solution at x = 0. 
     possible_factors = [] 
 
     for constant_factor in range(1, constant + 1): 
@@ -221,7 +233,36 @@ def determine_possible_factors(coefficients: list) -> list:
     return possible_factors
 
 
-def determine_linear_factors(coefficients: list): 
+def format_linear_factor(x_coefficient: int, constant: int, add = True) -> str: 
+    """Return the linear factor, qx - p, as a string, given x_coefficient for 
+    q and constant for p, which is never passed as 0.
+    
+    >>> format_linear_factor(2, 1) 
+    2x + 1
+
+    >>> format_linear_factor(-3, 1, False) 
+    -3x - 1
+    """
+
+    # constant is negative, linear factor should have format qx + p.
+    if add: 
+        if x_coefficient != 1:
+            linear_factor = str(x_coefficient) + "x + " + str(abs(constant))
+
+        elif constant != 0:
+            linear_factor = "x + " + str(abs(constant))
+
+    else: 
+        if x_coefficient != 1:
+            linear_factor = str(x_coefficient) + "x - " + str(constant)
+
+        elif constant != 0: 
+            linear_factor = "x - " + str(constant)
+
+    return linear_factor
+
+
+def determine_linear_factors(coefficients: list, degree: int, factored = False): 
     """Calculate the value of the polynomial represented by coefficients for
     each of its possible factors. Find all the linear factors for the 
     polynomial and print them. 
@@ -233,8 +274,15 @@ def determine_linear_factors(coefficients: list):
 
     print("\nComputations")
 
+    # If x^n has been factoed out of the polynomial, x will be a factor.
+    if factored: 
+        linear.append(0) 
+        print("f(0) = 0")
+
+    # Print each of the values of the polynomial with the input of its 
+    # possible factor. 
     for factor in possible_factors: 
-        value = calculate_polynomial(coefficients, factor)
+        value = calculate_polynomial(coefficients, degree, factor)
 
         print("f({}) = {}".format(factor, value))
 
@@ -244,34 +292,39 @@ def determine_linear_factors(coefficients: list):
     print("\nResults")
 
     if len(linear) == 0:
-        print("The polynomial has no linear factors.")
+        print("The polynomial has no linear factors.\n")
         return
     else:
-        print("The polynomial has factors: ")
+        print("The polynomial has linear factors: ")
 
     linear_factors = [] 
 
     for factor in linear: 
+        # The linear factor qx - p comes from p/q, where f(p/q) = 0.
         x_coefficient = factor.denominator
-        constant = factor.numerator 
+        constant = factor.numerator
 
-        if x_coefficient != 1: 
-            linear_factor = str(x_coefficient) + "x + " + str(constant)
-        else: 
-            linear_factor = "x + " + str(constant)
+        if factor > 0: 
+            linear_factor = format_linear_factor(x_coefficient, constant, False)
+
+        elif factor < 0: 
+            linear_factor = format_linear_factor(x_coefficient, constant)
+
+        else:
+            linear_factor = "x"
 
         linear_factors.append(linear_factor)
 
     for i in range(len(linear_factors)): 
-        if i != len(linear_factors) - 1: 
+        if i != len(linear_factors) - 1:
             print(linear_factors[i] + ", ", end = "")
-        else: 
-            print(linear_factors[i] + "\n")
+        else:
+            print(linear_factors[-1] + "\n")
         
 
 def main_menu(): 
     print("Factor Theorem")
-    print("_" * len("Factor Theorem"))
+    print("-" * len("Factor Theorem"))
     
     print("Finds all the linear factors of a polynomial " + 
         "(degree 2 or greater) with integer coefficients. " +
@@ -306,8 +359,10 @@ def main_menu():
 
         if trailing_zeros(coefficients): 
             coefficients = simplify_polynomial(coefficients)
+            determine_linear_factors(coefficients, poly_degree, True)
 
-        determine_linear_factors(coefficients)
+        else: 
+            determine_linear_factors(coefficients, poly_degree)
 
 
 if __name__ == "__main__": 
