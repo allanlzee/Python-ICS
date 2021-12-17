@@ -219,7 +219,7 @@ def determine_possible_factors(coefficients: list) -> list:
             # Possible factor p/q, where p divides into the polynomial
             # constant and q divides into the leading coefficient.
             factor = Fraction(constant_factor, 
-                leading_factor).limit_denominator()
+                leading_factor).limit_denominator(1000)
 
             # Prevent duplicates of possible factors. 
             if factor not in possible_factors: 
