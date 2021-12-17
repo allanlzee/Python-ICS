@@ -26,7 +26,7 @@ def get_user_choice() -> str:
 def get_coefficients() -> list: 
     """Get a string of polynomial coefficients from the user, separated by 
     spaces and return them as a list of integers. Ensure that the user enters
-    valid coefficients."""
+    valid coefficients. """
 
     # Remove leading and trailing whitespace and separate coefficients.
     input_coefficients = input("Coefficients: ").strip().split(" ")
@@ -65,6 +65,40 @@ def remove_leading_zeros(coefficients: list) -> list:
     return coefficients[index:]
 
 
+def trailing_zeros(coefficients: list) -> bool:
+    """Return True if the list of coefficients has trailing zeros, meaning
+    that x^n (n >= 1) can be factored out from the polynomial. Otherwise, 
+    return False.
+    
+    >>> trailing_zeros([2, 5, 3, 0, 0]) 
+    True
+    """
+
+    if coefficients[-1] == 0:
+        return True
+
+    return False
+
+
+def simplify_polynomial(coefficients: list) -> list:
+    """Factor out x^n from the polynomial represented by the list, 
+    coefficients and return the factored list of coefficients.
+    
+    >>> simplify_polynomial([2, 5, 3, 0, 0])
+    [2, 5, 3] 
+    """
+
+    last_term = -1
+
+    while coefficients[last_term] == 0:
+        last_term -= 1
+
+    # Get the index of the last non-zero term.
+    last_term = len(coefficients) + last_term
+
+    return coefficients[:last_term + 1]
+
+
 def calculate_degree(coefficients: list) -> int: 
     """Return the degree of the polynomial represented by integer coefficients
     in list coefficients.
@@ -88,8 +122,8 @@ def determine_polynomial(coefficients: list, degree: int) -> str:
     >>> determine_polynomial([1, 0, 7, 6, 2], 4) 
     x^4 + 7x^2 + 6x + 2
 
-    >>> determine_polynomial([2, 3, 1, 0], 3)
-    2x^3 + 3x^2 + x 
+    >>> determine_polynomial([2, 3, -1, 0], 3)
+    2x^3 + 3x^2 + -x 
     """
     
     polynomial = "" 
@@ -152,8 +186,6 @@ def calculate_polynomial(coefficients: list, degree: int,
     >>> calculate_polynomial([6, -17, 11, -2], 3, Fraction(1, 6))
     -11/18
 
-    >>> calculate_polynomial([6, -17, 11, -2], 3, Fraction(2))
-    0
     """
 
     polynomial_value = 0 
@@ -163,40 +195,6 @@ def calculate_polynomial(coefficients: list, degree: int,
         degree -= 1 
 
     return polynomial_value
-
-
-def trailing_zeros(coefficients: list) -> bool: 
-    """Return True if the list of coefficients has trailing zeros, meaning
-    that x^n (n >= 1) can be factored out from the polynomial. Otherwise, 
-    return False.
-    
-    >>> trailing_zeros([2, 5, 3, 0, 0]) 
-    True
-    """
-
-    if coefficients[-1] == 0:
-        return True 
-    
-    return False 
-
-
-def simplify_polynomial(coefficients: list) -> list:
-    """Factor out x^n from the polynomial represented by the list, 
-    coefficients and return the factored list of coefficients.
-    
-    >>> simplify_polynomial([2, 5, 3, 0, 0])
-    [2, 5, 3] 
-    """ 
-
-    last_term = -1
-
-    while coefficients[last_term] == 0:
-        last_term -= 1
-
-    # Get the index of the last non-zero term.
-    last_term = len(coefficients) + last_term
-
-    return coefficients[:last_term + 1]
 
 
 def determine_possible_factors(coefficients: list) -> list: 
@@ -226,6 +224,7 @@ def determine_possible_factors(coefficients: list) -> list:
             factor = Fraction(constant_factor, 
                 leading_factor).limit_denominator()
 
+            # Prevent duplicates of possible factors. 
             if factor not in possible_factors: 
                 possible_factors.append(factor)
                 possible_factors.append(-factor)
@@ -252,6 +251,7 @@ def format_linear_factor(x_coefficient: int, constant: int, add = True) -> str:
         elif constant != 0:
             linear_factor = "x + " + str(abs(constant))
 
+    # constant is positive, linear factor should have format qx - p.
     else: 
         if x_coefficient != 1:
             linear_factor = str(x_coefficient) + "x - " + str(constant)
@@ -265,8 +265,7 @@ def format_linear_factor(x_coefficient: int, constant: int, add = True) -> str:
 def determine_linear_factors(coefficients: list, degree: int, factored = False): 
     """Calculate the value of the polynomial represented by coefficients for
     each of its possible factors. Find all the linear factors for the 
-    polynomial and print them. 
-    """
+    polynomial and print them."""
     
     possible_factors = determine_possible_factors(coefficients)
 
@@ -315,14 +314,16 @@ def determine_linear_factors(coefficients: list, degree: int, factored = False):
 
         linear_factors.append(linear_factor)
 
-    for i in range(len(linear_factors)): 
-        if i != len(linear_factors) - 1:
-            print(linear_factors[i] + ", ", end = "")
-        else:
-            print(linear_factors[-1] + "\n")
+    # Print all linear factors, separated by commas. 
+    for i in range(len(linear_factors) - 1): 
+        print(linear_factors[i] + ", ", end = "")
+        
+    print(linear_factors[-1] + "\n")
         
 
 def main_menu(): 
+    """The main menu for the Factor Theorem program."""
+
     print("Factor Theorem")
     print("-" * len("Factor Theorem"))
     
