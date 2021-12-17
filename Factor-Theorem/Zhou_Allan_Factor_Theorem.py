@@ -101,7 +101,7 @@ def simplify_polynomial(coefficients: list) -> list:
 
 def calculate_degree(coefficients: list) -> int: 
     """Return the degree of the polynomial represented by integer coefficients
-    in list coefficients.
+    in list coefficients. Note that the last coefficient represents a constant. 
     
     >>> get_degree([1, 0, 1])
     2 
@@ -109,8 +109,8 @@ def calculate_degree(coefficients: list) -> int:
     3
     """
     
-    # Calculate the degree of the polynomial. Note that the last 
-    # coefficient represents a constant. 
+    # Calculate the degree of the polynomial, which is the highest degree of 
+    # all the monomial terms with non-zero coefficients. 
     degree = len(coefficients) - 1
 
     return degree 
@@ -185,7 +185,6 @@ def calculate_polynomial(coefficients: list, degree: int,
 
     >>> calculate_polynomial([6, -17, 11, -2], 3, Fraction(1, 6))
     -11/18
-
     """
 
     polynomial_value = 0 
@@ -209,10 +208,9 @@ def determine_possible_factors(coefficients: list) -> list:
     leading = abs(coefficients[0])
     constant = abs(coefficients[-1])
 
-    # Start with 0 as a possible factor, since polynomials with no constant 
-    # have a solution at x = 0. 
     possible_factors = [] 
 
+    # Find all factors of constant and leading. 
     for constant_factor in range(1, constant + 1): 
         if constant % constant_factor != 0: 
             continue
@@ -220,7 +218,9 @@ def determine_possible_factors(coefficients: list) -> list:
         for leading_factor in range(1, leading + 1): 
             if leading % leading_factor != 0: 
                 continue
-
+            
+            # Possible factor p/q, where p divides into the polynomial
+            # constant and q divides into the leading coefficient.
             factor = Fraction(constant_factor, 
                 leading_factor).limit_denominator()
 
@@ -232,7 +232,7 @@ def determine_possible_factors(coefficients: list) -> list:
     return possible_factors
 
 
-def format_linear_factor(x_coefficient: int, constant: int, add = True) -> str: 
+def format_linear_factor(x_coefficient: int, constant: int, add=True) -> str: 
     """Return the linear factor, qx - p, as a string, given x_coefficient for 
     q and constant for p, which is never passed as 0.
     
@@ -262,7 +262,7 @@ def format_linear_factor(x_coefficient: int, constant: int, add = True) -> str:
     return linear_factor
 
 
-def determine_linear_factors(coefficients: list, degree: int, factored = False): 
+def determine_linear_factors(coefficients: list, degree: int, factored=False): 
     """Calculate the value of the polynomial represented by coefficients for
     each of its possible factors. Find all the linear factors for the 
     polynomial and print them."""
@@ -303,9 +303,11 @@ def determine_linear_factors(coefficients: list, degree: int, factored = False):
         x_coefficient = factor.denominator
         constant = factor.numerator
 
+        # Linear factor will have form qx + p. 
         if factor > 0: 
             linear_factor = format_linear_factor(x_coefficient, constant, False)
 
+        # Linear factor will have form qx - p. 
         elif factor < 0: 
             linear_factor = format_linear_factor(x_coefficient, constant)
 
@@ -318,6 +320,7 @@ def determine_linear_factors(coefficients: list, degree: int, factored = False):
     for i in range(len(linear_factors) - 1): 
         print(linear_factors[i] + ", ", end = "")
         
+    # Print the last linear factor without a trailing comma.
     print(linear_factors[-1] + "\n")
         
 
@@ -358,6 +361,7 @@ def main_menu():
 
         print("\nThe polynomial is: f(x) = {}.".format(polynomial))
 
+        # x^n is factored out of the polynomial to use the Factor Theorem.
         if trailing_zeros(coefficients): 
             coefficients = simplify_polynomial(coefficients)
             determine_linear_factors(coefficients, poly_degree, True)
