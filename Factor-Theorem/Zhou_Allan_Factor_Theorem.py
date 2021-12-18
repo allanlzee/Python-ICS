@@ -16,7 +16,6 @@ def get_user_choice() -> str:
     while True: 
         program = input("> ").strip()
 
-        # Ensure user enters valid choice.
         if program == "1" or program == "2": 
             return program
         else: 
@@ -58,7 +57,7 @@ def remove_leading_zeros(coefficients: list) -> list:
     index = 0 
     
     # Find index of first non-zero integer in coefficients.
-    while coefficients[index] == 0: 
+    while coefficients[index] == 0 and index < len(coefficients) - 1: 
         index += 1 
 
     return coefficients[index:]
@@ -108,8 +107,7 @@ def calculate_degree(coefficients: list) -> int:
     3
     """
     
-    # Calculate the degree of the polynomial, which is the highest degree of 
-    # all the monomial terms with non-zero coefficients. 
+    # Return the highest degree of all the terms (non-zero coefficients). 
     return len(coefficients) - 1
 
 
@@ -216,8 +214,6 @@ def determine_possible_factors(coefficients: list) -> list:
             if leading % leading_factor != 0: 
                 continue
             
-            # Possible factor p/q, where p divides into the polynomial
-            # constant and q divides into the leading coefficient.
             factor = Fraction(constant_factor, 
                 leading_factor).limit_denominator(1000)
 
@@ -275,8 +271,6 @@ def determine_linear_factors(coefficients: list, degree: int, factored=False):
         linear.append(0) 
         print("f(0) = 0")
 
-    # Print each of the values of the polynomial with the input of its 
-    # possible factor. 
     for factor in possible_factors: 
         value = calculate_polynomial(coefficients, degree, factor)
 
@@ -313,11 +307,9 @@ def determine_linear_factors(coefficients: list, degree: int, factored=False):
 
         linear_factors.append(linear_factor)
 
-    # Print all linear factors, separated by commas. 
     for i in range(len(linear_factors) - 1): 
         print(linear_factors[i] + ", ", end = "")
-        
-    # Print the last linear factor without a trailing comma.
+
     print(linear_factors[-1] + "\n")
         
 
@@ -343,14 +335,16 @@ def main_menu():
             print("Thanks for using Factor Theorem.")
             break 
 
-        coefficients = None 
+        while True: 
+            coefficients = remove_leading_zeros(get_coefficients())
 
-        while coefficients == None: 
-            coefficients = get_coefficients()
+            poly_degree = calculate_degree(coefficients)
 
-        coefficients = remove_leading_zeros(coefficients)
+            if not(poly_degree >= 2): 
+                print("The polynomial must have a degree of 2 or greater.\n")
 
-        poly_degree = calculate_degree(coefficients)
+            else:
+                break
 
         print("\nThe polynomial has a degree of {}.".format(poly_degree))
 
