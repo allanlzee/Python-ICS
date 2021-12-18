@@ -11,7 +11,7 @@ from fractions import Fraction
 
 def get_user_choice() -> str: 
     """Return the user's choice between calculating linear factors (1) 
-    or exiting the program (2)."""
+    or exiting the program (2). """
 
     while True: 
         program = input("> ").strip()
@@ -101,9 +101,10 @@ def calculate_degree(coefficients: list) -> int:
     """Return the degree of the polynomial represented by integer coefficients 
     in list coefficients. coefficients has been cleared of leading zeros. 
     
-    >>> get_degree([1, 0, 1])
+    >>> calculate_degree([1, 0, 1])
     2 
-    >>> get_degree([1, 2, 7, 0])
+
+    >>> calculate_degree([1, 2, 7, 0])
     3
     """
     
@@ -112,13 +113,13 @@ def calculate_degree(coefficients: list) -> int:
 
 
 def determine_polynomial(coefficients: list, degree: int) -> str: 
-    """Print a polynomial represented by list coefficients.
+    """Return a polynomial represented by list coefficients as a string.
     
     >>> determine_polynomial([1, 0, 7, 6, 2], 4) 
-    x^4 + 7x^2 + 6x + 2
+    'x^4 + 7x^2 + 6x + 2'
 
     >>> determine_polynomial([2, 3, -1, 0], 3)
-    2x^3 + 3x^2 + -x 
+    '2x^3 + 3x^2 + -x' 
     """
     
     polynomial = "" 
@@ -172,14 +173,14 @@ def determine_polynomial(coefficients: list, degree: int) -> str:
 
 def calculate_polynomial(coefficients: list, degree: int, 
                         input: Fraction) -> Fraction: 
-    """Calculate the value of the polynomial represented by coefficients
+    """Return the value of the polynomial f(x) represented by coefficients
     when x is equal to input. 
 
     >>> calculate_polynomial([6, -17, 11, -2], 3, Fraction(1, 3))
-    0
+    Fraction(0, 1)
 
     >>> calculate_polynomial([6, -17, 11, -2], 3, Fraction(1, 6))
-    -11/18
+    Fraction(-11, 18)
     """
 
     polynomial_value = 0 
@@ -196,8 +197,8 @@ def determine_possible_factors(coefficients: list) -> list:
     coefficients. For p/q, p divides into the constant and p divides into the
     leading coefficient. 
     
-    >>> determine_possible_factors([1, 2, 7, 0, 6]) 
-    [1, -1, 2, -2, 3, -3, 6, -6]
+    >>> determine_possible_factors([1, 2, 7, 0, 2]) 
+    [Fraction(1, 1), Fraction(-1, 1), Fraction(2, 1), Fraction(-2, 1)]
     """
 
     leading = abs(coefficients[0])
@@ -230,10 +231,10 @@ def format_linear_factor(x_coefficient: int, constant: int, add=True) -> str:
     q and constant for p, which is never passed as 0.
     
     >>> format_linear_factor(2, 1) 
-    2x + 1
+    '2x + 1'
 
     >>> format_linear_factor(-3, 1, False) 
-    -3x - 1
+    '-3x - 1'
     """
 
     # constant is negative, linear factor should have format qx + p.
@@ -257,8 +258,8 @@ def format_linear_factor(x_coefficient: int, constant: int, add=True) -> str:
 
 def determine_linear_factors(coefficients: list, degree: int, factored=False): 
     """Calculate the value of the polynomial represented by coefficients for
-    each of its possible factors. Find all the linear factors for the 
-    polynomial and print them."""
+    each of its possible factors, p/q. Based on whether f(p/q) = 0, find all 
+    the linear factors for the polynomial and print them. """
     
     possible_factors = determine_possible_factors(coefficients)
 
@@ -314,7 +315,7 @@ def determine_linear_factors(coefficients: list, degree: int, factored=False):
         
 
 def main_menu(): 
-    """The main menu for the Factor Theorem program."""
+    """The main menu for the Factor Theorem program. """
 
     print("Factor Theorem")
     print("-" * len("Factor Theorem"))
@@ -332,7 +333,7 @@ def main_menu():
         print()
 
         if program == "2": 
-            print("Thanks for using Factor Theorem.")
+            print("Thanks for using Factor Theorem.\n")
             break 
 
         while True: 
