@@ -235,20 +235,30 @@ def format_linear_factor(x_coefficient: int, constant: int, add=True) -> str:
     """
 
     # constant is negative, linear factor should have format qx + p.
-    if add: 
+    if add and constant != 0: 
         if x_coefficient != 1:
             linear_factor = str(x_coefficient) + "x + " + str(abs(constant))
 
-        elif constant != 0:
+        else:
             linear_factor = "x + " + str(abs(constant))
 
     # constant is positive, linear factor should have format qx - p.
-    else: 
+    elif constant != 0: 
         if x_coefficient != 1:
             linear_factor = str(x_coefficient) + "x - " + str(constant)
 
-        elif constant != 0: 
+        else: 
             linear_factor = "x - " + str(constant)
+
+    else: 
+        if x_coefficient == -1: 
+            linear_factor = "-x"
+
+        elif x_coefficient == 1: 
+            linear_factor = "x"
+
+        else:
+            linear_factor = str(x_coefficient) + "x"
 
     return linear_factor
 
@@ -292,24 +302,47 @@ def determine_linear_factors(coefficients: list, degree: int, factored=False):
         x_coeff = factor.denominator
         const = factor.numerator
 
-        # Linear factor will have form qx + p. 
-        if factor > 0: 
-            linear_factor = format_linear_factor(x_coeff, const, False)
+        if factor != 0:
+            # Linear factor will have form qx + p. 
+            if factor > 0: 
+                linear_factor = format_linear_factor(x_coeff, const, False)
 
-        # Linear factor will have form qx - p. 
-        elif factor < 0: 
-            linear_factor = format_linear_factor(x_coeff, const)
+            # Linear factor will have form qx - p. 
+            else: 
+                linear_factor = format_linear_factor(x_coeff, const)
 
+            linear_factors.append(linear_factor)
+
+        # nx, where n is a factor of all the coefficients, could be a factor.
+        # If factor = 0, x can be factored since there is no constant term.
         else:
-            linear_factor = "x"
+            smallest_co = abs(coefficients[0])
 
-        linear_factors.append(linear_factor)
+            # All factors up to the smallest coefficient are checked.
+            for num in coefficients: 
+                if abs(num) < smallest_co and num != 0:
+                    smallest_co = abs(num)
+
+            factors = []
+
+            for factor in range(1, smallest_co + 1): 
+                for index in range(len(coefficients)): 
+                    if coefficients[index] % factor != 0:
+                        break 
+                    # factor and -factor can be factored from the polynomial.
+                    elif index == len(coefficients) - 1: 
+                        factors.append(factor)
+                        factors.append(-factor)
+
+            for num in factors: 
+                linear_factor = format_linear_factor(num, 0)
+                linear_factors.append(linear_factor)
 
     for i in range(len(linear_factors) - 1): 
         print(linear_factors[i] + ", ", end = "")
 
     print(linear_factors[-1] + "\n")
-        
+
 
 def main_menu(): 
     """The main menu for the Factor Theorem program. """
@@ -334,15 +367,18 @@ def main_menu():
             break 
 
         while True: 
-            coefficients = remove_leading_zeros(get_coefficients())
+            coefficients = get_coefficients()
 
-            poly_degree = calculate_degree(coefficients)
+            if coefficients != None:
+                coefficients = remove_leading_zeros(coefficients)
 
-            if not(poly_degree >= 2): 
-                print("The polynomial must have a degree of 2 or greater.\n")
+                poly_degree = calculate_degree(coefficients)
 
-            else:
-                break
+                if not(poly_degree >= 2): 
+                    print("The polynomial must have a degree of 2 or greater.\n")
+
+                else:
+                    break
 
         print("\nThe polynomial has a degree of {}.".format(poly_degree))
 
