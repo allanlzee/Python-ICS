@@ -1,6 +1,6 @@
 """This program uses the Factor Theorem to find the linear factors of a 
 polynomial entered by the user by calculating the degree and possible factors
-for the polynomial."""
+for the polynomial. """
 
 
 __author__ = "Allan Zhou"
@@ -148,17 +148,14 @@ def determine_polynomial(coefficients: list, degree: int) -> str:
         elif current_coefficient != 1:
             polynomial += str(current_coefficient)
 
-        # Add the variable x and exponents to the polynomial.
-        # nx^1 will be written as nx. 
         if index != len(coefficients) - 1 and degree > 1: 
             polynomial += "x^" + str(degree) + " + "
         
-        # The polynomial ends with a non-constant term with an exponent 
-        # greater than 1.
+        # The polynomial ends with a term of degree 2 or greater.
         elif degree > 1: 
             polynomial += "x^" + str(degree)
 
-        # Deals with the term with an exponent of 1 (not as the last term). 
+        # nx^1 is written as nx, where n is the coefficient, since x^1 = x. 
         elif index != len(coefficients) - 1: 
             polynomial += "x + "
 
@@ -267,7 +264,7 @@ def determine_linear_factors(coefficients: list, degree: int, factored=False):
 
     print("\nComputations")
 
-    # If x^n has been factoed out of the polynomial, x will be a factor.
+    # If x^n has been factored out of the polynomial, x will be a factor.
     if factored: 
         linear.append(0) 
         print("f(0) = 0")
@@ -292,16 +289,16 @@ def determine_linear_factors(coefficients: list, degree: int, factored=False):
 
     for factor in linear: 
         # The linear factor qx - p comes from p/q, where f(p/q) = 0.
-        x_coefficient = factor.denominator
-        constant = factor.numerator
+        x_coeff = factor.denominator
+        const = factor.numerator
 
         # Linear factor will have form qx + p. 
         if factor > 0: 
-            linear_factor = format_linear_factor(x_coefficient, constant, False)
+            linear_factor = format_linear_factor(x_coeff, const, False)
 
         # Linear factor will have form qx - p. 
         elif factor < 0: 
-            linear_factor = format_linear_factor(x_coefficient, constant)
+            linear_factor = format_linear_factor(x_coeff, const)
 
         else:
             linear_factor = "x"
