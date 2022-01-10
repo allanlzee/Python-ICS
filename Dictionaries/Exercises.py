@@ -62,10 +62,6 @@ def exercise_4():
     print(occur)
 
 
-def exercise_5(): 
-    print("This is another bad commit.")
-
-
 def main():
     exercise_4()
 
