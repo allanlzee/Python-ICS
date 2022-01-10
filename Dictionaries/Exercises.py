@@ -62,13 +62,6 @@ def exercise_4():
     print(occur)
 
 
-def exercise_5(): 
-    """a commit on branch develop"""
-    
-def exercise_5():
-    """a commit on develop 2.0"""
-
-
 def main():
     exercise_4()
 
